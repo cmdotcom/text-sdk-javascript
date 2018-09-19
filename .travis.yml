@@ -1,0 +1,8 @@
+language: node_js
+node_js:
+  - "10.3.0"
+install:
+  - npm ci
+  - npm run build
+  - npm run test
+
