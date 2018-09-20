@@ -1,8 +1,8 @@
 ## @cmdotcom/text-sdk: A helper library to send text messages.
 
-![Travis (.com)](https://img.shields.io/travis/com/cmdotcom/text-sdk-javascript.svg)
-![Codacy grade](https://img.shields.io/codacy/grade/aaaaaaaaaaaaaaaaaaaaaaaa.svg)
-![Codecov](https://img.shields.io/codecov/c/github/cmdotcom/text-sdk-javascript.svg)
+[![Published on NPM](https://img.shields.io/npm/v/@cmdotcom/text-sdk.svg)](https://www.npmjs.com/package/@cmdotcom/text-sdk)
+[![Travis (.com)](https://img.shields.io/travis/com/cmdotcom/text-sdk-javascript.svg)](https://travis-ci.com/cmdotcom/text-sdk-javascript)
+[![Codecov](https://img.shields.io/codecov/c/github/cmdotcom/text-sdk-javascript.svg)](https://codecov.io/gh/cmdotcom/text-sdk-javascript)
 
 
 Want to send text-messages in your Node.js application? Then you are at the right place.
