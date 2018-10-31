@@ -8,11 +8,11 @@ class MessageApiClient {
         this.productToken = productToken;
     }
 
-    public SendTextMessage(to: string, from: string, message: string) {
-        return this.SendTextMessages([to], from, message);
+    public SendTextMessage(to: string, from: string, message: string, reference: string = undefined) {
+        return this.SendTextMessages([to], from, message, reference);
     }
 
-    public SendTextMessages(to: string[], from: string, message: string) {
+    public SendTextMessages(to: string[], from: string, message: string, reference: string = undefined) {
         const api = new CM.MessagesApi();
 
         const messageEnvelope = new CM.MessageEnvelope();
@@ -27,6 +27,7 @@ class MessageApiClient {
         msg.body.type = "AUTO";
         msg.body.content = message;
 
+        msg.reference = reference;
         msg.to = this.createRecipients(to);
 
         messageEnvelope.messages.msg = new Array<CM.Message>();
