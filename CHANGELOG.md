@@ -1,6 +1,11 @@
-## [0.2.1] - 2019-xx-xx - To be released
-### Added
-- Updated dependencies (audit-fix).
+## [1.0.0] - 2019-02-21
+### Major
+This version is set to 1.0.0, as 0.2.0 is stable for current users.
+Version itself does not include new features to the current limited set,
+but it will be easier to manage possible breaking changes from now on.
+
+### Dependencies
+- Updated dependencies (audit-fixes).
 
 ## [0.2.0] - 2018-10-31
 ### Added
