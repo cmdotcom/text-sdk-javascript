@@ -10,6 +10,7 @@ import "mocha";
 // Mocking the gateway here.
 const nock = require('nock');
 const gateway = nock('https://gw.cmtelecom.com')
+    .persist()
     .post('/v1.0/message')
     .reply(200, {
         "details": "Created 1 message(s)"
@@ -28,7 +29,7 @@ describe("MessageApiClient", () => {
         const myMessageApi = new MessageApiClient(yourProductToken);
         const response = myMessageApi.SendTextMessage("00316012345678", "MockedTest", "Hi.");
 
-        expect(response).eventually.fulfilled.and.to.satisfy((response) => {
+        expect(response).to.be.eventually.fulfilled.and.to.satisfy((response) => {
             return response.body.details === "Created 1 message(s)";
         });
     });
@@ -36,9 +37,9 @@ describe("MessageApiClient", () => {
     it("should create a valid http(s) request, when sending an array of recipients", () => {
         const yourProductToken = "cccc";
         const myMessageApi = new MessageApiClient(yourProductToken);
-        const response = myMessageApi.SendTextMessages(["00316012345678"], "MockedTest", "Hi.");
+        const response = myMessageApi.SendTextMessages(["00316012345678"], "MockedTest", "Hello.");
 
-        expect(response).eventually.fulfilled.and.to.satisfy((response) => {
+        expect(response).to.be.eventually.fulfilled.and.to.satisfy((response) => {
             return response.body.details === "Created 1 message(s)";
         });
     });

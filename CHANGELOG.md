@@ -1,3 +1,7 @@
+## [0.2.1] - 2019-xx-xx - To be released
+### Added
+- Updated dependencies (audit-fix).
+
 ## [0.2.0] - 2018-10-31
 ### Added
 - Ability to set reference.
