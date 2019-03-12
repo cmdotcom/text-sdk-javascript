@@ -1,4 +1,4 @@
-import { MessageApiClient } from "../lib/MessageApiClient";
+import { MessageApiClient, CM } from "../lib/MessageApiClient";
 
 const chai = require("chai");
 const chaiAsPromised = require("chai-as-promised");
@@ -27,7 +27,7 @@ describe("MessageApiClient", () => {
     it("should create a valid http(s) request", () => {
         const yourProductToken = "cccc";
         const myMessageApi = new MessageApiClient(yourProductToken);
-        const response = myMessageApi.SendTextMessage("00316012345678", "MockedTest", "Hi.");
+        const response = myMessageApi.sendTextMessage(["00316012345678"], "MockedTest", "Hi.");
 
         expect(response).to.be.eventually.fulfilled.and.to.satisfy((response) => {
             return response.body.details === "Created 1 message(s)";
@@ -37,7 +37,65 @@ describe("MessageApiClient", () => {
     it("should create a valid http(s) request, when sending an array of recipients", () => {
         const yourProductToken = "cccc";
         const myMessageApi = new MessageApiClient(yourProductToken);
-        const response = myMessageApi.SendTextMessages(["00316012345678"], "MockedTest", "Hello.");
+        const response = myMessageApi.sendTextMessage(["00316012345678"], "MockedTest", "Hello.");
+
+        expect(response).to.be.eventually.fulfilled.and.to.satisfy((response) => {
+            return response.body.details === "Created 1 message(s)";
+        });
+    });
+
+    it("should create a valid http(s) request, when sending rich content", () => {
+        const yourProductToken = "dddd";
+        const client = new MessageApiClient(yourProductToken);
+        const response = client.sendRichMessage(["0031614134569"], "TestSender", "Hello world?!", null, ["Viber"],
+            [
+                {
+                    media: {
+                        mediaName: "cm.com",
+                        mediaUri: "https://avatars3.githubusercontent.com/u/8234794?s=200&v=4"
+                    },
+                    text: "Check out my image"
+                }
+            ],
+            [
+                {
+                    action: "openUrl",
+                    label: "Click me",
+                    url: "google.com"
+                }
+            ])
+
+        expect(response).to.be.eventually.fulfilled.and.to.satisfy((response) => {
+            return response.body.details === "Created 1 message(s)";
+        });
+    });
+
+    it("should create a valid http(s) request, when using the message-builder", () => {
+        const yourProductToken = "dddd";
+        const client = new MessageApiClient(yourProductToken);
+
+        const richMessage : CM.RichMessage = {
+            media: {
+                mediaName: "cm.com",
+                mediaUri: "https://avatars3.githubusercontent.com/u/8234794?s=200&v=4"
+            },
+            text: "Check out my image"
+        };
+
+        const suggestion : CM.Suggestion = {
+            action: "openUrl",
+            label: "Click me",
+            url: "google.com"
+        };
+
+        const response = client.createMessage()
+            .setMessage(["0031614134569"], "TestSender", "Hello world?!")
+            .setAllowedChannels(["Viber"])
+            .setConversation([richMessage])
+            .setSuggestion([suggestion])
+            .send();
+
+        // TODO configure 'nock' to only allow the json we expect.
 
         expect(response).to.be.eventually.fulfilled.and.to.satisfy((response) => {
             return response.body.details === "Created 1 message(s)";
