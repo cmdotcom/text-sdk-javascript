@@ -16,7 +16,6 @@ The package is currently limited in features compared to the CM gateway, but if 
 First, run `npm install @cmdotcom/text-sdk`. Then, in your source file:
 ```javascript
 const messagingApi = require("@cmdotcom/text-sdk");
-const {CMTypes} = require("@cmdotcom/text-sdk");
 
 // Get your product token at CM.com.
 const yourProductToken = "";
@@ -36,54 +35,34 @@ or send multiple
 const result = myMessageApi.sendTextMessage(["00316012345678","003160000000"], "TestSender", "Hello world?!");
 ```
 
-  or send rich messages
-```javascript
-const result = myMessageApi.sendRichMessage(["00316012345678"], "TestSender", "Hello world?!", null, ["Viber"],
-    [
-        {
-        media: {
-            mediaName: "cm.com",
-            mediaUri: "https://avatars3.githubusercontent.com/u/8234794?s=200&v=4"
-        },
-        text: "Check out my image"
-    }
-    ],
-    [
-        {
-            action: "openUrl",
-            label: "Click me",
-            url: "google.com"
-        }
-    ])
-    .then((result) => {
-        console.log(result);
-    }).catch((error) => {
-        console.log(error);
-    });
-```
-
  send rich messages using the message builder
 ```javascript
-  const richMessage : CMTypes.RichMessage = {
-            media: {
-                mediaName: "cm.com",
-                mediaUri: "https://avatars3.githubusercontent.com/u/8234794?s=200&v=4"
-            },
-            text: "Check out my image"
-        };
+const richMessage = {
+    media: {
+        mediaName: "cm.com",
+        mediaUri: "https://avatars3.githubusercontent.com/u/8234794?s=200&v=4"
+    },
+    text: "Check out my image"
+};
 
-        const suggestion : CMTypes.Suggestion = {
-            action: "openUrl",
-            label: "Click me",
-            url: "google.com"
-        };
+const suggestion = {
+    action: "openUrl",
+    label: "Click me",
+    url: "google.com"
+};
 
-        const response = client.createMessage()
-            .setMessage(["00316012345678"], "TestSender", "Hello world?!")
-            .setAllowedChannels(["Viber"])
-            .setConversation([richMessage])
-            .setSuggestion([suggestion])
-            .send();
+const response = client.createMessage()
+    .setMessage(["00316012345678"], "TestSender", "Hello world?!")
+    .setAllowedChannels(["Viber"])
+    .setConversation([richMessage])
+    .setSuggestion([suggestion])
+    .send();
+
+response.then((result) => {
+    console.log(result);
+}).catch((error) => {
+    console.log(error);
+});
 ```
 
 ### License

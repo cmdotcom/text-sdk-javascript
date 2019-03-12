@@ -1366,6 +1366,14 @@ export class Message {
     * The custom grouping field is an optional field that can be used to tag messages. These tags will be used by other CM products, like the Transactions API. Despite not being immediately visible to you yet, custom groupings can already be assigned.  Applying custom grouping names to messages helps filter your messages.With up to three levels of custom grouping fields that can be set, subsets of messages can be further broken down. The custom grouping name can be up to 100 characters of your choosing.  It’s recommended to limit the number of unique custom groupings to 1000. Please contact support in case you would like to exceed this number.
     */
     'customGrouping'?: string;
+    /**
+    * The allowed channels field forces a message to only use certain routes.  In this field you can define a list of which channels you want your message to use.  Not defining any channels will be interpreted as allowing all channels.
+    */
+    'allowedChannels'?: Array<string>;
+    /**
+     * Can be used by channels that support rich content (all channels except SMS, Voice and Push at this moment)
+     */
+    'richContent'?: RichContent;
 
     static discriminator: string | undefined = undefined;
 
@@ -1404,7 +1412,17 @@ export class Message {
             "name": "customGrouping",
             "baseName": "customGrouping",
             "type": "string"
-        }    ];
+        },
+        {
+            "name": "allowedChannels",
+            "baseName": "allowedChannels",
+            "type": "Array<string>"
+        },
+        {
+            "name": "richContent",
+            "baseName": "richContent",
+            "type": "RichContent"
+        }];
 
     static getAttributeTypeMap() {
         return Message.attributeTypeMap;
@@ -1423,14 +1441,6 @@ export class MessageBody {
     * It possible to let our gateway do the encoding detection for you, by setting the type to \"AUTO\"  In case it detects characters that are not part of the GSM character set, the message will be delivered as Unicode.   Any existing DCS value will be ignored.   If the message contains more than 70 characters in Unicode format it will be split into a multipart message.   You can limit the number of parts by setting the maximum number of message parts (see also the section on Multipart below).
     */
     'type'?: string;
-    /**
-    * The allowed channels field forces a message to only use certain routes.  In this field you can define a list of which channels you want your message to use.  Not defining any channels will be interpreted as allowing all channels.
-    */
-    'allowedChannels'?: Array<string>;
-    /**
-    * Can be used by channels that support rich content (all channels except SMS,  Voice and Push at this moment)
-    */
-    'richContent'?: RichContent;
 
     static discriminator: string | undefined = undefined;
 
@@ -1444,17 +1454,7 @@ export class MessageBody {
             "name": "type",
             "baseName": "type",
             "type": "string"
-        },
-        {
-            "name": "allowedChannels",
-            "baseName": "allowedChannels",
-            "type": "Array<string>"
-        },
-        {
-            "name": "richContent",
-            "baseName": "richContent",
-            "type": "RichContent"
-        }    ];
+        }];
 
     static getAttributeTypeMap() {
         return MessageBody.attributeTypeMap;
