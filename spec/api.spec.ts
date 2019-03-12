@@ -44,32 +44,6 @@ describe("MessageApiClient", () => {
         });
     });
 
-    it("should create a valid http(s) request, when sending rich content", () => {
-        const yourProductToken = "dddd";
-        const client = new MessageApiClient(yourProductToken);
-        const response = client.sendRichMessage(["00316012345678"], "TestSender", "Hello world?!", null, ["Viber"],
-            [
-                {
-                    media: {
-                        mediaName: "cm.com",
-                        mediaUri: "https://avatars3.githubusercontent.com/u/8234794?s=200&v=4"
-                    },
-                    text: "Check out my image"
-                }
-            ],
-            [
-                {
-                    action: "openUrl",
-                    label: "Click me",
-                    url: "google.com"
-                }
-            ])
-
-        expect(response).to.be.eventually.fulfilled.and.to.satisfy((response) => {
-            return response.body.details === "Created 1 message(s)";
-        });
-    });
-
     it("should create a valid http(s) request, when using the message-builder", () => {
         const yourProductToken = "dddd";
         const client = new MessageApiClient(yourProductToken);
