@@ -1,4 +1,4 @@
-import * as CM from "../typescript-node-client/api";
+import * as CMTypes from "../typescript-node-client/api";
 
 class MessageApiClient {
 
@@ -30,31 +30,31 @@ class MessageApiClient {
     }
 }
 
-class Message extends CM.MessageEnvelope {
+class Message extends CMTypes.MessageEnvelope {
 
     private RichContent: any;
 
     constructor(productToken: string) {
         super();
 
-        this.messages = new CM.Messages();
-        this.messages.authentication = new CM.Authentication();
+        this.messages = new CMTypes.Messages();
+        this.messages.authentication = new CMTypes.Authentication();
         this.messages.authentication.productToken = productToken;
-        this.RichContent = new CM.RichContent();
+        this.RichContent = new CMTypes.RichContent();
     }
 
     public setMessage(to: string[], from: string, message: string, reference: string = undefined) {
-        const msg = new CM.Message();
+        const msg = new CMTypes.Message();
         msg.customGrouping = "text-sdk-javascript";
         msg.from = from;
-        msg.body = new CM.MessageBody();
+        msg.body = new CMTypes.MessageBody();
         msg.body.type = "AUTO";
         msg.body.content = message;
 
         msg.reference = reference;
         msg.to = this.createRecipients(to);
 
-        this.messages.msg = new Array<CM.Message>();
+        this.messages.msg = new Array<CMTypes.Message>();
         this.messages.msg.push(msg);
 
         return this;
@@ -67,20 +67,20 @@ class Message extends CM.MessageEnvelope {
         return this;
     }
 
-    public setConversation(conversation: CM.RichMessage[]) {
+    public setConversation(conversation: CMTypes.RichMessage[]) {
         this.RichContent.conversation = conversation;
         this.messages.msg[0].body.richContent = this.RichContent;
         return this;
     }
 
-    public setSuggestion(suggestions: CM.Suggestion[]) {
+    public setSuggestion(suggestions: CMTypes.Suggestion[]) {
         this.RichContent.suggestions = suggestions;
         this.messages.msg[0].body.richContent = this.RichContent;
         return this;
     }
 
     public send() {
-        const api = new CM.MessagesApi();
+        const api = new CMTypes.MessagesApi();
 
         return api.messagesSendMessage(this);
     }
@@ -88,7 +88,7 @@ class Message extends CM.MessageEnvelope {
 
     private createRecipients(recipients: string[]) {
         return recipients.map((number: string) => {
-            const recipient: CM.Recipient = {
+            const recipient: CMTypes.Recipient = {
                 number: number
             };
             return recipient;
@@ -96,4 +96,4 @@ class Message extends CM.MessageEnvelope {
     }
 }
 
-export { MessageApiClient, Message, CM };
+export { MessageApiClient, Message, CMTypes };

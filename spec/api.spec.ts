@@ -1,4 +1,4 @@
-import { MessageApiClient, CM } from "../lib/MessageApiClient";
+import { MessageApiClient, CMTypes } from "../lib/MessageApiClient";
 
 const chai = require("chai");
 const chaiAsPromised = require("chai-as-promised");
@@ -47,7 +47,7 @@ describe("MessageApiClient", () => {
     it("should create a valid http(s) request, when sending rich content", () => {
         const yourProductToken = "dddd";
         const client = new MessageApiClient(yourProductToken);
-        const response = client.sendRichMessage(["0031614134569"], "TestSender", "Hello world?!", null, ["Viber"],
+        const response = client.sendRichMessage(["00316012345678"], "TestSender", "Hello world?!", null, ["Viber"],
             [
                 {
                     media: {
@@ -74,7 +74,7 @@ describe("MessageApiClient", () => {
         const yourProductToken = "dddd";
         const client = new MessageApiClient(yourProductToken);
 
-        const richMessage : CM.RichMessage = {
+        const richMessage : CMTypes.RichMessage = {
             media: {
                 mediaName: "cm.com",
                 mediaUri: "https://avatars3.githubusercontent.com/u/8234794?s=200&v=4"
@@ -82,20 +82,18 @@ describe("MessageApiClient", () => {
             text: "Check out my image"
         };
 
-        const suggestion : CM.Suggestion = {
+        const suggestion : CMTypes.Suggestion = {
             action: "openUrl",
             label: "Click me",
             url: "google.com"
         };
 
         const response = client.createMessage()
-            .setMessage(["0031614134569"], "TestSender", "Hello world?!")
+            .setMessage(["00316012345678"], "TestSender", "Hello world?!")
             .setAllowedChannels(["Viber"])
             .setConversation([richMessage])
             .setSuggestion([suggestion])
             .send();
-
-        // TODO configure 'nock' to only allow the json we expect.
 
         expect(response).to.be.eventually.fulfilled.and.to.satisfy((response) => {
             return response.body.details === "Created 1 message(s)";
