@@ -16,7 +16,7 @@ The package is currently limited in features compared to the CM gateway, but if 
 First, run `npm install @cmdotcom/text-sdk`. Then, in your source file:
 ```javascript
 const messagingApi = require("@cmdotcom/text-sdk");
-
+const {CMTypes} = require("@cmdotcom/text-sdk");
 
 // Get your product token at CM.com.
 const yourProductToken = "";
@@ -62,7 +62,29 @@ const result = myMessageApi.sendRichMessage(["00316012345678"], "TestSender", "H
     });
 ```
 
+ send rich messages using the message builder
+```javascript
+  const richMessage : CMTypes.RichMessage = {
+            media: {
+                mediaName: "cm.com",
+                mediaUri: "https://avatars3.githubusercontent.com/u/8234794?s=200&v=4"
+            },
+            text: "Check out my image"
+        };
 
+        const suggestion : CMTypes.Suggestion = {
+            action: "openUrl",
+            label: "Click me",
+            url: "google.com"
+        };
+
+        const response = client.createMessage()
+            .setMessage(["00316012345678"], "TestSender", "Hello world?!")
+            .setAllowedChannels(["Viber"])
+            .setConversation([richMessage])
+            .setSuggestion([suggestion])
+            .send();
+```
 
 ### License
 @cmdotcom/text-sdk is under the MIT license. See LICENSE file.
