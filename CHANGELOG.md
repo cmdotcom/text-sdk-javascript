@@ -1,3 +1,7 @@
+## [1.1.0] - 2019-03-13
+### Added
+- Added several features for RichContent in messages.
+
 ## [1.0.0] - 2019-02-21
 ### Major
 This version is set to 1.0.0, as 0.2.0 is stable for current users.
