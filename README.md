@@ -42,13 +42,13 @@ const richMessage = {
         mediaName: "cm.com",
         mediaUri: "https://avatars3.githubusercontent.com/u/8234794?s=200&v=4"
     },
-    text: "Check out my image"
+    text: "Our logo!"
 };
 
 const suggestion = {
     action: "openUrl",
     label: "Click me",
-    url: "google.com"
+    url: "https://www.cm.com"
 };
 
 const response = client.createMessage()
