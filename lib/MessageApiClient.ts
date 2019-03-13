@@ -8,42 +8,40 @@ class MessageApiClient {
         this.productToken = productToken;
     }
 
-    public createMessage() {
+    public createMessage() : Message {
         return new Message(this.productToken);
     }
 
+    public SendTextMessage(to: string, from: string, message: string, reference: string = undefined) {
+        return this.SendTextMessages([to], from, message, reference);
+    }
+    
+    public SendTextMessages(to: string[], from: string, message: string, reference: string = undefined) {
+        return this.sendTextMessage(to, from, message, reference);
+    }
+    
     public sendTextMessage(to: string[], from: string, message: string, reference: string = undefined) {
         return this
             .createMessage()
             .setMessage(to, from, message, reference)
             .send();
     }
-
-    public sendRichMessage(to: string[], from: string, message: string, reference: string = undefined, channels: string[] = undefined, conversation: any = undefined, suggestions: any = undefined) {
-        return this
-            .createMessage()
-            .setMessage(to, from, message, reference)
-            .setAllowedChannels(channels)
-            .setConversation(conversation)
-            .setSuggestion(suggestions)
-            .send();
-    }
 }
 
 class Message extends CMTypes.MessageEnvelope {
 
-    private RichContent: any;
+    private api: CMTypes.MessagesApi;
 
     constructor(productToken: string) {
         super();
 
+        this.api = new CMTypes.MessagesApi();
         this.messages = new CMTypes.Messages();
         this.messages.authentication = new CMTypes.Authentication();
         this.messages.authentication.productToken = productToken;
-        this.RichContent = new CMTypes.RichContent();
     }
 
-    public setMessage(to: string[], from: string, message: string, reference: string = undefined) {
+    public setMessage(to: string[], from: string, message: string, reference: string = undefined): Message {
         const msg = new CMTypes.Message();
         msg.customGrouping = "text-sdk-javascript";
         msg.from = from;
@@ -60,33 +58,34 @@ class Message extends CMTypes.MessageEnvelope {
         return this;
     }
 
-    public setAllowedChannels(channels: string[]) {
+    public setAllowedChannels(channels: string[]): Message {
         if (channels && channels.length > 0) {
-            this.messages.msg[0].body.allowedChannels = channels;
+            this.messages.msg[0].allowedChannels = channels;
         }
         return this;
     }
 
-    public setConversation(conversation: CMTypes.RichMessage[]) {
-        this.RichContent.conversation = conversation;
-        this.messages.msg[0].body.richContent = this.RichContent;
+    public setConversation(conversation: CMTypes.RichMessage[]): Message {
+        if (this.messages.msg[0].richContent === undefined) {
+            this.messages.msg[0].richContent = new CMTypes.RichContent();
+        }
+        this.messages.msg[0].richContent.conversation = conversation;
         return this;
     }
 
-    public setSuggestion(suggestions: CMTypes.Suggestion[]) {
-        this.RichContent.suggestions = suggestions;
-        this.messages.msg[0].body.richContent = this.RichContent;
+    public setSuggestion(suggestions: CMTypes.Suggestion[]): Message {
+        if (this.messages.msg[0].richContent === undefined) {
+            this.messages.msg[0].richContent = new CMTypes.RichContent();
+        }
+        this.messages.msg[0].richContent.suggestions = suggestions;
         return this;
     }
 
-    public send() {
-        const api = new CMTypes.MessagesApi();
-
-        return api.messagesSendMessage(this);
+    public send(): Promise<{ body: CMTypes.MessagesResponse;  }> {
+        return this.api.messagesSendMessage(this);
     }
 
-
-    private createRecipients(recipients: string[]) {
+    private createRecipients(recipients: string[]): CMTypes.Recipient[] {
         return recipients.map((number: string) => {
             const recipient: CMTypes.Recipient = {
                 number: number

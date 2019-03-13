@@ -7,14 +7,21 @@ const expect = chai.expect;
 
 import "mocha";
 
-// Mocking the gateway here.
 const nock = require('nock');
-const gateway = nock('https://gw.cmtelecom.com')
-    .persist()
-    .post('/v1.0/message')
-    .reply(200, {
-        "details": "Created 1 message(s)"
-    });
+// Mocking the gateway here.
+beforeEach(() => {
+    nock('https://gw.cmtelecom.com')
+        .post('/v1.0/message')
+        .once() //Make sure we don't post twice
+        .reply(200, (uri, requestBody) => {
+            // For debugging purposes:
+            //console.log(uri);
+            //console.log(requestBody.messages.msg);
+
+            return { details: "Created 1 message(s)" };
+        });
+});
+
 
 describe("MessageApiClient", () => {
 
@@ -24,7 +31,27 @@ describe("MessageApiClient", () => {
         expect(myMessageApi).to.be.an.instanceof(MessageApiClient);
     });
 
-    it("should create a valid http(s) request", () => {
+    it("should create a valid http(s) request - SendTextMessage", () => {
+        const yourProductToken = "cccc";
+        const myMessageApi = new MessageApiClient(yourProductToken);
+        const response = myMessageApi.SendTextMessage("00316012345678", "MockedTest", "Hi.");
+
+        expect(response).to.be.eventually.fulfilled.and.to.satisfy((response) => {
+            return response.body.details === "Created 1 message(s)";
+        });
+    });
+
+    it("should create a valid http(s) request - SendTextMessages", () => {
+        const yourProductToken = "cccc";
+        const myMessageApi = new MessageApiClient(yourProductToken);
+        const response = myMessageApi.SendTextMessages(["00316012345678"], "MockedTest", "Hi.");
+
+        expect(response).to.be.eventually.fulfilled.and.to.satisfy((response) => {
+            return response.body.details === "Created 1 message(s)";
+        });
+    });
+
+    it("should create a valid http(s) request - sendTextMessage", () => {
         const yourProductToken = "cccc";
         const myMessageApi = new MessageApiClient(yourProductToken);
         const response = myMessageApi.sendTextMessage(["00316012345678"], "MockedTest", "Hi.");
@@ -33,65 +60,45 @@ describe("MessageApiClient", () => {
             return response.body.details === "Created 1 message(s)";
         });
     });
+});
 
-    it("should create a valid http(s) request, when sending an array of recipients", () => {
-        const yourProductToken = "cccc";
-        const myMessageApi = new MessageApiClient(yourProductToken);
-        const response = myMessageApi.sendTextMessage(["00316012345678"], "MockedTest", "Hello.");
+describe("MessageApiClient+MessageBuilder", () => {
+    const richMessage: CMTypes.RichMessage = {
+        media: {
+            mediaName: "cm.com",
+            mediaUri: "https://avatars3.githubusercontent.com/u/8234794?s=200&v=4"
+        },
+        text: "Check out my image"
+    };
 
-        expect(response).to.be.eventually.fulfilled.and.to.satisfy((response) => {
-            return response.body.details === "Created 1 message(s)";
-        });
-    });
-
-    it("should create a valid http(s) request, when sending rich content", () => {
+    it("should create a valid http(s) request, when using the message-builder with richMessage", () => {
         const yourProductToken = "dddd";
         const client = new MessageApiClient(yourProductToken);
-        const response = client.sendRichMessage(["00316012345678"], "TestSender", "Hello world?!", null, ["Viber"],
-            [
-                {
-                    media: {
-                        mediaName: "cm.com",
-                        mediaUri: "https://avatars3.githubusercontent.com/u/8234794?s=200&v=4"
-                    },
-                    text: "Check out my image"
-                }
-            ],
-            [
-                {
-                    action: "openUrl",
-                    label: "Click me",
-                    url: "google.com"
-                }
-            ])
-
-        expect(response).to.be.eventually.fulfilled.and.to.satisfy((response) => {
-            return response.body.details === "Created 1 message(s)";
-        });
-    });
-
-    it("should create a valid http(s) request, when using the message-builder", () => {
-        const yourProductToken = "dddd";
-        const client = new MessageApiClient(yourProductToken);
-
-        const richMessage : CMTypes.RichMessage = {
-            media: {
-                mediaName: "cm.com",
-                mediaUri: "https://avatars3.githubusercontent.com/u/8234794?s=200&v=4"
-            },
-            text: "Check out my image"
-        };
-
-        const suggestion : CMTypes.Suggestion = {
-            action: "openUrl",
-            label: "Click me",
-            url: "google.com"
-        };
 
         const response = client.createMessage()
             .setMessage(["00316012345678"], "TestSender", "Hello world?!")
             .setAllowedChannels(["Viber"])
             .setConversation([richMessage])
+            .send();
+
+        expect(response).to.be.eventually.fulfilled.and.to.satisfy((response) => {
+            return response.body.details === "Created 1 message(s)";
+        });
+    });
+
+    const suggestion: CMTypes.Suggestion = {
+        action: "openUrl",
+        label: "Click me",
+        url: "google.com"
+    };
+
+    it("should create a valid http(s) request, when using the message-builder with suggestion", () => {
+        const yourProductToken = "dddd";
+        const client = new MessageApiClient(yourProductToken);
+
+        const response = client.createMessage()
+            .setMessage(["00316012345678"], "TestSender", "Hello world?!")
+            .setAllowedChannels(["Viber"])
             .setSuggestion([suggestion])
             .send();
 
