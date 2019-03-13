@@ -137,15 +137,1190 @@ class ObjectSerializer {
 }
 
 /**
+* Contains information for a {CM.Messaging.RCSModels.Models.Suggestion.Calendar} (RCS).
+*/
+export class Calendar {
+    /**
+    * The start of the appointment.
+    */
+    'startTime'?: Date;
+    /**
+    * The end of the appointment.
+    */
+    'endTime'?: Date;
+    /**
+    * The description which will appear in the calendar app
+    */
+    'description'?: string;
+    /**
+    * The title of the appointment which will appear in the calendar app
+    */
+    'title'?: string;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "startTime",
+            "baseName": "startTime",
+            "type": "Date"
+        },
+        {
+            "name": "endTime",
+            "baseName": "endTime",
+            "type": "Date"
+        },
+        {
+            "name": "description",
+            "baseName": "description",
+            "type": "string"
+        },
+        {
+            "name": "title",
+            "baseName": "title",
+            "type": "string"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return Calendar.attributeTypeMap;
+    }
+}
+
+/**
+* Options to select a calendar
+*/
+export class CalendarPicker {
+    /**
+    * The options to select.
+    */
+    'options'?: Array<Calendar>;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "options",
+            "baseName": "options",
+            "type": "Array<Calendar>"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return CalendarPicker.attributeTypeMap;
+    }
+}
+
+/**
+* A carousel contains two or more RichCards
+*/
+export class Carousel {
+    /**
+    * The width for the items of the carousel: options are Small or Medium
+    */
+    'cardWidth'?: Carousel.CardWidthEnum;
+    /**
+    * The cards of the carousel
+    */
+    'cards'?: Array<RichCard>;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "cardWidth",
+            "baseName": "cardWidth",
+            "type": "Carousel.CardWidthEnum"
+        },
+        {
+            "name": "cards",
+            "baseName": "cards",
+            "type": "Array<RichCard>"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return Carousel.attributeTypeMap;
+    }
+}
+
+export namespace Carousel {
+    export enum CardWidthEnum {
+        Small = <any> 'Small',
+        Medium = <any> 'Medium'
+    }
+}
+/**
+* Represents 1 contact
+*/
+export class Contact {
+    /**
+    * Contact address(es)
+    */
+    'addresses'?: Array<ContactAddress>;
+    /**
+    * Contact email address(es)
+    */
+    'emails'?: Array<ContactEmail>;
+    /**
+    * Full contact name
+    */
+    'name'?: ContactName;
+    /**
+    * Contact organization information
+    */
+    'org'?: ContactOrganization;
+    /**
+    * Contact phone number(s)
+    */
+    'phones'?: Array<ContactPhoneNumber>;
+    /**
+    * Contact URL(s)
+    */
+    'urls'?: Array<ContactUrl>;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "addresses",
+            "baseName": "addresses",
+            "type": "Array<ContactAddress>"
+        },
+        {
+            "name": "emails",
+            "baseName": "emails",
+            "type": "Array<ContactEmail>"
+        },
+        {
+            "name": "name",
+            "baseName": "name",
+            "type": "ContactName"
+        },
+        {
+            "name": "org",
+            "baseName": "org",
+            "type": "ContactOrganization"
+        },
+        {
+            "name": "phones",
+            "baseName": "phones",
+            "type": "Array<ContactPhoneNumber>"
+        },
+        {
+            "name": "urls",
+            "baseName": "urls",
+            "type": "Array<ContactUrl>"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return Contact.attributeTypeMap;
+    }
+}
+
+/**
+* One address of a contact  See also https://developers.facebook.com/docs/whatsapp/api/messages/others#contacts
+*/
+export class ContactAddress {
+    /**
+    * City name
+    */
+    'city'?: string;
+    /**
+    * Full country name
+    */
+    'country'?: string;
+    /**
+    * Two-letter country abbreviation
+    */
+    'countryCode'?: string;
+    /**
+    * State abbreviation
+    */
+    'state'?: string;
+    /**
+    * Street number and name
+    */
+    'street'?: string;
+    /**
+    * Standard Values: HOME, WORK
+    */
+    'type'?: string;
+    /**
+    * ZIP code
+    */
+    'zip'?: string;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "city",
+            "baseName": "city",
+            "type": "string"
+        },
+        {
+            "name": "country",
+            "baseName": "country",
+            "type": "string"
+        },
+        {
+            "name": "countryCode",
+            "baseName": "country_code",
+            "type": "string"
+        },
+        {
+            "name": "state",
+            "baseName": "state",
+            "type": "string"
+        },
+        {
+            "name": "street",
+            "baseName": "street",
+            "type": "string"
+        },
+        {
+            "name": "type",
+            "baseName": "type",
+            "type": "string"
+        },
+        {
+            "name": "zip",
+            "baseName": "zip",
+            "type": "string"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return ContactAddress.attributeTypeMap;
+    }
+}
+
+/**
+* Contact email address  See also https://developers.facebook.com/docs/whatsapp/api/messages/others#contacts
+*/
+export class ContactEmail {
+    /**
+    * Email address
+    */
+    'email'?: string;
+    /**
+    * Standard Values: HOME, WORK
+    */
+    'type'?: string;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "email",
+            "baseName": "email",
+            "type": "string"
+        },
+        {
+            "name": "type",
+            "baseName": "type",
+            "type": "string"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return ContactEmail.attributeTypeMap;
+    }
+}
+
+/**
+* The name of a contact.  See also https://developers.facebook.com/docs/whatsapp/api/messages/others#contacts
+*/
+export class ContactName {
+    /**
+    * First name
+    */
+    'firstName'?: string;
+    /**
+    * Last name
+    */
+    'lastName'?: string;
+    /**
+    * Middle name
+    */
+    'middleName'?: string;
+    /**
+    * Name prefix
+    */
+    'namePrefix'?: string;
+    /**
+    * Name suffix
+    */
+    'nameSuffix'?: string;
+    /**
+    * Full name as it normally appears
+    */
+    'formattedName'?: string;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "firstName",
+            "baseName": "first_name",
+            "type": "string"
+        },
+        {
+            "name": "lastName",
+            "baseName": "last_name",
+            "type": "string"
+        },
+        {
+            "name": "middleName",
+            "baseName": "middle_name",
+            "type": "string"
+        },
+        {
+            "name": "namePrefix",
+            "baseName": "name_prefix",
+            "type": "string"
+        },
+        {
+            "name": "nameSuffix",
+            "baseName": "name_suffix",
+            "type": "string"
+        },
+        {
+            "name": "formattedName",
+            "baseName": "formatted_name",
+            "type": "string"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return ContactName.attributeTypeMap;
+    }
+}
+
+/**
+* The organization of a contact  See also https://developers.facebook.com/docs/whatsapp/api/messages/others#contacts
+*/
+export class ContactOrganization {
+    /**
+    * Name of the contact's company
+    */
+    'company'?: string;
+    /**
+    * Name of the contact's department
+    */
+    'department'?: string;
+    /**
+    * Contact's business title
+    */
+    'title'?: string;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "company",
+            "baseName": "company",
+            "type": "string"
+        },
+        {
+            "name": "department",
+            "baseName": "department",
+            "type": "string"
+        },
+        {
+            "name": "title",
+            "baseName": "title",
+            "type": "string"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return ContactOrganization.attributeTypeMap;
+    }
+}
+
+/**
+* Phone number of a contact
+*/
+export class ContactPhoneNumber {
+    /**
+    * The phone number of the contact
+    */
+    'phone'?: string;
+    /**
+    * Standard Values: CELL, MAIN, IPHONE, HOME, WORK
+    */
+    'type'?: string;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "phone",
+            "baseName": "phone",
+            "type": "string"
+        },
+        {
+            "name": "type",
+            "baseName": "type",
+            "type": "string"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return ContactPhoneNumber.attributeTypeMap;
+    }
+}
+
+/**
+* An Url for a contact  See also https://developers.facebook.com/docs/whatsapp/api/messages/others#contacts
+*/
+export class ContactUrl {
+    /**
+    * URL
+    */
+    'url'?: string;
+    /**
+    * Standard Values: HOME, WORK
+    */
+    'type'?: string;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "url",
+            "baseName": "url",
+            "type": "string"
+        },
+        {
+            "name": "type",
+            "baseName": "type",
+            "type": "string"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return ContactUrl.attributeTypeMap;
+    }
+}
+
+/**
+* Contains information for a {CM.Messaging.RCSModels.Models.Suggestion.Dial}
+*/
+export class Dial {
+    /**
+    * The number to call (in international format)
+    */
+    'phoneNumber'?: string;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "phoneNumber",
+            "baseName": "phoneNumber",
+            "type": "string"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return Dial.attributeTypeMap;
+    }
+}
+
+/**
+* Source: https://developers.facebook.com/docs/whatsapp/api/messages/message-templates  The language parameter sets the language policy for an Message Template;  you can set it to either fallback or deterministic.
+*/
+export class Language {
+    /**
+    * Source: https://developers.facebook.com/docs/whatsapp/api/messages/message-templates  The code of the language or locale to use — Accepts both language and language_locale formats (e.g., en and en_US).
+    */
+    'code'?: string;
+    /**
+    * Source: https://developers.facebook.com/docs/whatsapp/api/messages/message-templates  Options: fallback, deterministic  The language policy the message should follow
+    */
+    'policy'?: string;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "code",
+            "baseName": "code",
+            "type": "string"
+        },
+        {
+            "name": "policy",
+            "baseName": "policy",
+            "type": "string"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return Language.attributeTypeMap;
+    }
+}
+
+export class LineItem {
+    'label'?: string;
+    'subText'?: string;
+    'type'?: string;
+    'amount'?: number;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "label",
+            "baseName": "label",
+            "type": "string"
+        },
+        {
+            "name": "subText",
+            "baseName": "subText",
+            "type": "string"
+        },
+        {
+            "name": "type",
+            "baseName": "type",
+            "type": "string"
+        },
+        {
+            "name": "amount",
+            "baseName": "amount",
+            "type": "number"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return LineItem.attributeTypeMap;
+    }
+}
+
+/**
+* Source: https://developers.facebook.com/docs/whatsapp/api/messages/message-templates  This field is an array of values to apply to variables in the template
+*/
+export class LocalizableParam {
+    /**
+    * Source: https://developers.facebook.com/docs/whatsapp/api/messages/message-templates    Default text if localization fails
+    */
+    '_default'?: string;
+    /**
+    * Source: https://developers.facebook.com/docs/whatsapp/api/messages/message-templates    If the currency object is used, it contains required parameters currency_code and amount_1000.
+    */
+    'currency'?: any;
+    /**
+    * Source: https://developers.facebook.com/docs/whatsapp/api/messages/message-templates    If the date_time object is used, further definition of the date and time is required.
+    */
+    'dateTime'?: any;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "_default",
+            "baseName": "default",
+            "type": "string"
+        },
+        {
+            "name": "currency",
+            "baseName": "currency",
+            "type": "any"
+        },
+        {
+            "name": "dateTime",
+            "baseName": "date_time",
+            "type": "any"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return LocalizableParam.attributeTypeMap;
+    }
+}
+
+/**
+* Object containing information about an image, a video, an audio file or a document.
+*/
+export class Media {
+    /**
+    * The name of the item
+    */
+    'mediaName'?: string;
+    /**
+    * The location of the media item, should be available over the internet
+    */
+    'mediaUri'?: string;
+    /**
+    * The mime type of the media item
+    */
+    'mimeType'?: string;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "mediaName",
+            "baseName": "mediaName",
+            "type": "string"
+        },
+        {
+            "name": "mediaUri",
+            "baseName": "mediaUri",
+            "type": "string"
+        },
+        {
+            "name": "mimeType",
+            "baseName": "mimeType",
+            "type": "string"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return Media.attributeTypeMap;
+    }
+}
+
+export class OAuthMessage {
+    'responseType'?: string;
+    'state'?: string;
+    'responseEncryptionKey'?: string;
+    'clientSecret'?: string;
+    'scope'?: Array<string>;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "responseType",
+            "baseName": "responseType",
+            "type": "string"
+        },
+        {
+            "name": "state",
+            "baseName": "state",
+            "type": "string"
+        },
+        {
+            "name": "responseEncryptionKey",
+            "baseName": "responseEncryptionKey",
+            "type": "string"
+        },
+        {
+            "name": "clientSecret",
+            "baseName": "clientSecret",
+            "type": "string"
+        },
+        {
+            "name": "scope",
+            "baseName": "scope",
+            "type": "Array<string>"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return OAuthMessage.attributeTypeMap;
+    }
+}
+
+export class Payment {
+    'merchantIdentifier'?: string;
+    'merchantName'?: string;
+    'lineItems'?: Array<LineItem>;
+    'currencyCode'?: string;
+    'countryCodes'?: Array<string>;
+    'billingAddressRequired'?: boolean;
+    'shippingContactRequired'?: boolean;
+    'merchantSession'?: any;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "merchantIdentifier",
+            "baseName": "merchantIdentifier",
+            "type": "string"
+        },
+        {
+            "name": "merchantName",
+            "baseName": "merchantName",
+            "type": "string"
+        },
+        {
+            "name": "lineItems",
+            "baseName": "lineItems",
+            "type": "Array<LineItem>"
+        },
+        {
+            "name": "currencyCode",
+            "baseName": "currencyCode",
+            "type": "string"
+        },
+        {
+            "name": "countryCodes",
+            "baseName": "countryCodes",
+            "type": "Array<string>"
+        },
+        {
+            "name": "billingAddressRequired",
+            "baseName": "billingAddressRequired",
+            "type": "boolean"
+        },
+        {
+            "name": "shippingContactRequired",
+            "baseName": "shippingContactRequired",
+            "type": "boolean"
+        },
+        {
+            "name": "merchantSession",
+            "baseName": "merchantSession",
+            "type": "any"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return Payment.attributeTypeMap;
+    }
+}
+
+/**
+* A rich card, which can be used to display media, text and images in RCS
+*/
+export class RichCard {
+    /**
+    * A plain text message, when used it replaces the 'SMS' body text.  In RCS, when used in combination with an header and/or media this  will be set as the text of a rich card.
+    */
+    'text'?: string;
+    /**
+    * Optional: the header for a rich card
+    */
+    'header'?: string;
+    /**
+    * A image or video for a message. In RCS, this can be used in combination with  an header and/or text to create a rich card.
+    */
+    'media'?: Media;
+    /**
+    * Suggestions, used in channels that support these, such as RCS
+    */
+    'suggestions'?: Array<Suggestion>;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "text",
+            "baseName": "text",
+            "type": "string"
+        },
+        {
+            "name": "header",
+            "baseName": "header",
+            "type": "string"
+        },
+        {
+            "name": "media",
+            "baseName": "media",
+            "type": "Media"
+        },
+        {
+            "name": "suggestions",
+            "baseName": "suggestions",
+            "type": "Array<Suggestion>"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return RichCard.attributeTypeMap;
+    }
+}
+
+export class RichContent {
+    /**
+    * The messages to send.
+    */
+    'conversation'?: Array<RichMessage>;
+    /**
+    * Suggestions, used in channels that support these, such as RCS.
+    */
+    'suggestions'?: Array<Suggestion>;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "conversation",
+            "baseName": "conversation",
+            "type": "Array<RichMessage>"
+        },
+        {
+            "name": "suggestions",
+            "baseName": "suggestions",
+            "type": "Array<Suggestion>"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return RichContent.attributeTypeMap;
+    }
+}
+
+/**
+* A regular text message, replaces the Msg Body for channels  that support rich content (all channels except SMS, Voice  and Push at this moment)
+*/
+export class RichMessage {
+    /**
+    * A plain text message, when used it replaces the 'SMS' body text.  In RCS, when used in combination with an header and/or media this  will be set as the text of a rich card.
+    */
+    'text'?: string;
+    /**
+    * Optional: the header for a rich card
+    */
+    'header'?: string;
+    /**
+    * A image or video for a message. In RCS, this can be used in combination with  an header and/or text to create a rich card.
+    */
+    'media'?: Media;
+    /**
+    * Contains the rich cards of a carousel.
+    */
+    'carousel'?: Carousel;
+    /**
+    * Suggestions, used in channels that support these, such as RCS.
+    */
+    'suggestions'?: Array<Suggestion>;
+    /**
+    * A template, used in WhatsApp messages.
+    */
+    'template'?: Template;
+    /**
+    * Used to send a location, supported by (most) RCS connections  and WhatsApp.
+    */
+    'location'?: ViewLocation;
+    /**
+    * Used to send one or multiple contacts (in WhatsApp).
+    */
+    'contacts'?: Array<Contact>;
+    /**
+    * Used to send an (OAuth2) authentication request.
+    */
+    'oauth2'?: OAuthMessage;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "text",
+            "baseName": "text",
+            "type": "string"
+        },
+        {
+            "name": "header",
+            "baseName": "header",
+            "type": "string"
+        },
+        {
+            "name": "media",
+            "baseName": "media",
+            "type": "Media"
+        },
+        {
+            "name": "carousel",
+            "baseName": "carousel",
+            "type": "Carousel"
+        },
+        {
+            "name": "suggestions",
+            "baseName": "suggestions",
+            "type": "Array<Suggestion>"
+        },
+        {
+            "name": "template",
+            "baseName": "template",
+            "type": "Template"
+        },
+        {
+            "name": "location",
+            "baseName": "location",
+            "type": "ViewLocation"
+        },
+        {
+            "name": "contacts",
+            "baseName": "contacts",
+            "type": "Array<Contact>"
+        },
+        {
+            "name": "oauth2",
+            "baseName": "oauth2",
+            "type": "OAuthMessage"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return RichMessage.attributeTypeMap;
+    }
+}
+
+/**
+* Requests the received to share his/her location
+*/
+export class ShareLocation {
+    /**
+    * Specifies that we request the location
+    */
+    'requestLocation'?: boolean;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "requestLocation",
+            "baseName": "RequestLocation",
+            "type": "boolean"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return ShareLocation.attributeTypeMap;
+    }
+}
+
+/**
+* Represents a suggestion to send to the user
+*/
+export class Suggestion {
+    /**
+    * The action which needs to be taken.
+    */
+    'action'?: string;
+    /**
+    * The text the end user will see
+    */
+    'label'?: string;
+    /**
+    * Data which will be sent back in a MO ({CM.Messaging.RCSModels.Models.Suggestion.Label} will be used  if not specified)
+    */
+    'postbackdata'?: string;
+    /**
+    * The url the end user can open.  Used in an 'OpenUrl' suggestion {CM.Messaging.RCSModels.Models.Suggestion.Action}.
+    */
+    'url'?: string;
+    /**
+    * When the user clicks on the icon, it opens the calendar app of the user to  add the new appointment.  Used in an 'CreateCalendarEvent' suggestion {CM.Messaging.RCSModels.Models.Suggestion.Action}.
+    */
+    'calendar'?: Calendar;
+    /**
+    * When the user clicks on this suggestion, it opens a calendar picker.
+    */
+    'calendarPicker'?: CalendarPicker;
+    /**
+    * When the user clicks on this suggestion, it starts the call app.  Used in a 'Dial' suggestion {CM.Messaging.RCSModels.Models.Suggestion.Action}.
+    */
+    'dial'?: Dial;
+    /**
+    * When the user clicks on this suggestion, it will show a location.  Used in a 'viewLocation' suggestion {CM.Messaging.RCSModels.Models.Suggestion.Action}.
+    */
+    'viewLocation'?: ViewLocation;
+    /**
+    * When the user clicks on this suggestion, he/she can share the current location.  Used in a 'ShareLocation' suggestion {CM.Messaging.RCSModels.Models.Suggestion.Action}.
+    */
+    'shareLocation'?: ShareLocation;
+    /**
+    * If set and supported this media can be used as a thumbnail.
+    */
+    'media'?: Media;
+    /**
+    * If pre-configured and supported sets up the payment.
+    */
+    'payment'?: Payment;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "action",
+            "baseName": "action",
+            "type": "string"
+        },
+        {
+            "name": "label",
+            "baseName": "label",
+            "type": "string"
+        },
+        {
+            "name": "postbackdata",
+            "baseName": "postbackdata",
+            "type": "string"
+        },
+        {
+            "name": "url",
+            "baseName": "url",
+            "type": "string"
+        },
+        {
+            "name": "calendar",
+            "baseName": "calendar",
+            "type": "Calendar"
+        },
+        {
+            "name": "calendarPicker",
+            "baseName": "calendarPicker",
+            "type": "CalendarPicker"
+        },
+        {
+            "name": "dial",
+            "baseName": "dial",
+            "type": "Dial"
+        },
+        {
+            "name": "viewLocation",
+            "baseName": "viewLocation",
+            "type": "ViewLocation"
+        },
+        {
+            "name": "shareLocation",
+            "baseName": "shareLocation",
+            "type": "ShareLocation"
+        },
+        {
+            "name": "media",
+            "baseName": "media",
+            "type": "Media"
+        },
+        {
+            "name": "payment",
+            "baseName": "payment",
+            "type": "Payment"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return Suggestion.attributeTypeMap;
+    }
+}
+
+/**
+* Used to send a template message, at this moment only supported in WhatsApp
+*/
+export class Template {
+    /**
+    * The WhatsApp template message
+    */
+    'whatsapp'?: WhatsappTemplate;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "whatsapp",
+            "baseName": "whatsapp",
+            "type": "WhatsappTemplate"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return Template.attributeTypeMap;
+    }
+}
+
+/**
+* A location in a message or suggestion.
+*/
+export class ViewLocation {
+    /**
+    * The latitude in degrees
+    */
+    'latitude'?: number;
+    /**
+    * The longitude in degrees
+    */
+    'longitude'?: number;
+    /**
+    * The label to display at the pin in a map.
+    */
+    'label'?: string;
+    /**
+    * Search for this location instead of using the latitude/longitude.
+    */
+    'searchQuery'?: string;
+    /**
+    * Can be used in some RCS connections to display a radius instead of only a pointer
+    */
+    'radius'?: number;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "latitude",
+            "baseName": "latitude",
+            "type": "number"
+        },
+        {
+            "name": "longitude",
+            "baseName": "longitude",
+            "type": "number"
+        },
+        {
+            "name": "label",
+            "baseName": "label",
+            "type": "string"
+        },
+        {
+            "name": "searchQuery",
+            "baseName": "searchQuery",
+            "type": "string"
+        },
+        {
+            "name": "radius",
+            "baseName": "radius",
+            "type": "number"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return ViewLocation.attributeTypeMap;
+    }
+}
+
+/**
+* Whatsapp template, see https://developers.facebook.com/docs/whatsapp/api/messages/message-templates  for more information
+*/
+export class WhatsappTemplate {
+    /**
+    * Source: https://developers.facebook.com/docs/whatsapp/api/messages/message-templates  The namespace that will be used
+    */
+    'namespace'?: string;
+    /**
+    * Source: https://developers.facebook.com/docs/whatsapp/api/messages/message-templates  The element name that indicates which template to use within the namespace
+    */
+    'elementName'?: string;
+    /**
+    * Source: https://developers.facebook.com/docs/whatsapp/api/messages/message-templates  Allows for the specification of a deterministic or fallback language.    The language parameter sets the language policy for an Message Template;  you can set it to either fallback or deterministic.
+    */
+    'language'?: Language;
+    /**
+    * Source: https://developers.facebook.com/docs/whatsapp/api/messages/message-templates  This field is an array of values to apply to variables in the template
+    */
+    'localizableParams'?: Array<LocalizableParam>;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "namespace",
+            "baseName": "namespace",
+            "type": "string"
+        },
+        {
+            "name": "elementName",
+            "baseName": "element_name",
+            "type": "string"
+        },
+        {
+            "name": "language",
+            "baseName": "language",
+            "type": "Language"
+        },
+        {
+            "name": "localizableParams",
+            "baseName": "localizable_params",
+            "type": "Array<LocalizableParam>"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return WhatsappTemplate.attributeTypeMap;
+    }
+}
+
+/**
 * Authentication
 */
 export class Authentication {
     /**
     * Required: This is the product token for authentication. Visit https://gateway.cmtelecom.com to retrieve your product token.   Example: 00000000-0000-0000-0000-000000000000'
     */
-    'productToken': string;
+    'productToken'?: string;
 
-    static discriminator = undefined;
+    static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
@@ -166,33 +1341,41 @@ export class Message {
     /**
     * Required. This is the sender name. The maximum length is 11 alphanumerical characters or 16 digits. Example: 'CM Telecom'
     */
-    'from': string;
+    'from'?: string;
     /**
     * Required. This contains the message text.
     */
-    'body': MessageBody;
+    'body'?: MessageBody;
     /**
     * To send messages longer than 160 characters you need to send them as multipart message (also called concatenated messages). We will cut the message into more smaller messages and the phone will paste them together again. You will need to add a minimum and maximum of message parts using this parameter and {CM.Sms.Server.HttpMTGatewayDocsWebsite.Models.Message.MaximumNumberOfMessageParts}
     */
-    'minimumNumberOfMessageParts': number;
+    'minimumNumberOfMessageParts'?: number;
     /**
     * To send messages longer than 160 characters you need to send them as multipart message (also called concatenated messages). We will cut the message into more smaller messages and the phone will paste them together again. You will need to add a minimum and maximum of message parts using this parameter and {CM.Sms.Server.HttpMTGatewayDocsWebsite.Models.Message.MinimumNumberOfMessageParts}
     */
-    'maximumNumberOfMessageParts': number;
+    'maximumNumberOfMessageParts'?: number;
     /**
     * Here you can include your message reference. This information will be returned in a status report so you can match the message and it's status. Restrictions: 1 - 32 alphanumeric characters.
     */
-    'reference': string;
+    'reference'?: string;
     /**
     * Required. This is the destination mobile number.   Restrictions: this value should be in international format. A single mobile number per request. Example: '00447911123456'
     */
-    'to': Array<Recipient>;
+    'to'?: Array<Recipient>;
     /**
     * The custom grouping field is an optional field that can be used to tag messages. These tags will be used by other CM products, like the Transactions API. Despite not being immediately visible to you yet, custom groupings can already be assigned.  Applying custom grouping names to messages helps filter your messages.With up to three levels of custom grouping fields that can be set, subsets of messages can be further broken down. The custom grouping name can be up to 100 characters of your choosing.  It’s recommended to limit the number of unique custom groupings to 1000. Please contact support in case you would like to exceed this number.
     */
-    'customGrouping': string;
+    'customGrouping'?: string;
+    /**
+    * The allowed channels field forces a message to only use certain routes.  In this field you can define a list of which channels you want your message to use.  Not defining any channels will be interpreted as allowing all channels.
+    */
+    'allowedChannels'?: Array<string>;
+    /**
+     * Can be used by channels that support rich content (all channels except SMS, Voice and Push at this moment)
+     */
+    'richContent'?: RichContent;
 
-    static discriminator = undefined;
+    static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
@@ -229,7 +1412,17 @@ export class Message {
             "name": "customGrouping",
             "baseName": "customGrouping",
             "type": "string"
-        }    ];
+        },
+        {
+            "name": "allowedChannels",
+            "baseName": "allowedChannels",
+            "type": "Array<string>"
+        },
+        {
+            "name": "richContent",
+            "baseName": "richContent",
+            "type": "RichContent"
+        }];
 
     static getAttributeTypeMap() {
         return Message.attributeTypeMap;
@@ -243,13 +1436,13 @@ export class MessageBody {
     /**
     * Required. This is the message text.   For GSM7-encoded messages 1 message can contain up to 160 characters, for multipart messages, 1 message can contain up to 153 characters (the other bytes are used to define the multipart messages)    For Unicode-encoded messages 1 message can contain up to 70 characters, for multipart messages, 1 message can contain up to 66 characters per message    Unicode messages are sent using UTF-16, so they usually will be 2 bytes long (and certain characters will be send as multiple characters, but I hope we don’t need to discuss that here).     In theory a message can contain 255 message parts, so in theory the maximum length is 39.015. In practice we advise to limit the amount of parts to 8, so either 1224 or 528 characters
     */
-    'content': string;
+    'content'?: string;
     /**
     * It possible to let our gateway do the encoding detection for you, by setting the type to \"AUTO\"  In case it detects characters that are not part of the GSM character set, the message will be delivered as Unicode.   Any existing DCS value will be ignored.   If the message contains more than 70 characters in Unicode format it will be split into a multipart message.   You can limit the number of parts by setting the maximum number of message parts (see also the section on Multipart below).
     */
-    'type': string;
+    'type'?: string;
 
-    static discriminator = undefined;
+    static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
@@ -261,7 +1454,7 @@ export class MessageBody {
             "name": "type",
             "baseName": "type",
             "type": "string"
-        }    ];
+        }];
 
     static getAttributeTypeMap() {
         return MessageBody.attributeTypeMap;
@@ -272,9 +1465,9 @@ export class MessageBody {
 * Envelope containing messages and authentication
 */
 export class MessageEnvelope {
-    'messages': Messages;
+    'messages'?: Messages;
 
-    static discriminator = undefined;
+    static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
@@ -295,29 +1488,29 @@ export class MessageResponse {
     /**
     * Maps to the 'to' of the request
     */
-    'to': string;
+    'to'?: string;
     /**
     * The status of the message, usually either \"Accepted\" or \"Rejected\"
     */
-    'status': string;
+    'status'?: string;
     /**
     * Optional: If a reference was supplied in the request, it is returned here.
     */
-    'reference': string;
+    'reference'?: string;
     /**
     * The number of message parts that are sent
     */
-    'parts': number;
+    'parts'?: number;
     /**
     * Optional: Human readable details about this message.
     */
-    'messageDetails': string;
+    'messageDetails'?: string;
     /**
-    * The error code, see https://docs.cmtelecom.com/bulk-sms/v1.0#send_a_message|responses_&amp;_errors for more details.
+    * The error code, see https://docs.cmtelecom.com/all-messaging-api/v1.0#send_a_message|responses_&amp;_errors for more details.
     */
-    'messageErrorCode': number;
+    'messageErrorCode'?: number;
 
-    static discriminator = undefined;
+    static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
@@ -363,13 +1556,13 @@ export class Messages {
     /**
     * Required: This contains the product token for authentication.
     */
-    'authentication': Authentication;
+    'authentication'?: Authentication;
     /**
     * Required. The msg-object signals a message and should comprise of at least a from, to and body-tag. One HTTP-call can support up to 1000 msg objects.
     */
-    'msg': Array<Message>;
+    'msg'?: Array<Message>;
 
-    static discriminator = undefined;
+    static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
@@ -395,17 +1588,17 @@ export class MessagesResponse {
     /**
     * Human readable text such as: Created 1 message(s)
     */
-    'details': string;
+    'details'?: string;
     /**
-    * The error code, see https://docs.cmtelecom.com/bulk-sms/v1.0#send_a_message|responses_&amp;_errors for more details.
+    * The error code, see https://docs.cmtelecom.com/all-messaging-api/v1.0#send_a_message|responses_&amp;_errors for more details.
     */
-    'errorCode': number;
+    'errorCode'?: number;
     /**
     * Detailed information per message
     */
-    'messages': Array<MessageResponse>;
+    'messages'?: Array<MessageResponse>;
 
-    static discriminator = undefined;
+    static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
@@ -436,9 +1629,9 @@ export class Recipient {
     /**
     * Required. This is the destination mobile number.   Restrictions: this value should be in international format. A single mobile number per request. Example: '00447911123456'
     */
-    'number': string;
+    'number'?: string;
 
-    static discriminator = undefined;
+    static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
@@ -454,9 +1647,35 @@ export class Recipient {
 
 
 let enumsMap: {[index: string]: any} = {
+        "Carousel.CardWidthEnum": Carousel.CardWidthEnum,
 }
 
 let typeMap: {[index: string]: any} = {
+    "Calendar": Calendar,
+    "CalendarPicker": CalendarPicker,
+    "Carousel": Carousel,
+    "Contact": Contact,
+    "ContactAddress": ContactAddress,
+    "ContactEmail": ContactEmail,
+    "ContactName": ContactName,
+    "ContactOrganization": ContactOrganization,
+    "ContactPhoneNumber": ContactPhoneNumber,
+    "ContactUrl": ContactUrl,
+    "Dial": Dial,
+    "Language": Language,
+    "LineItem": LineItem,
+    "LocalizableParam": LocalizableParam,
+    "Media": Media,
+    "OAuthMessage": OAuthMessage,
+    "Payment": Payment,
+    "RichCard": RichCard,
+    "RichContent": RichContent,
+    "RichMessage": RichMessage,
+    "ShareLocation": ShareLocation,
+    "Suggestion": Suggestion,
+    "Template": Template,
+    "ViewLocation": ViewLocation,
+    "WhatsappTemplate": WhatsappTemplate,
     "Authentication": Authentication,
     "Message": Message,
     "MessageBody": MessageBody,
@@ -475,19 +1694,18 @@ export interface Authentication {
 }
 
 export class HttpBasicAuth implements Authentication {
-    public username: string;
-    public password: string;
+    public username: string = '';
+    public password: string = '';
+
     applyToRequest(requestOptions: localVarRequest.Options): void {
         requestOptions.auth = {
             username: this.username, password: this.password
         }
     }
-
-    productToken: string;
 }
 
 export class ApiKeyAuth implements Authentication {
-    public apiKey: string;
+    public apiKey: string = '';
 
     constructor(private location: string, private paramName: string) {
     }
@@ -499,30 +1717,25 @@ export class ApiKeyAuth implements Authentication {
             requestOptions.headers[this.paramName] = this.apiKey;
         }
     }
-
-    productToken: string;
 }
 
 export class OAuth implements Authentication {
-    public accessToken: string;
+    public accessToken: string = '';
 
     applyToRequest(requestOptions: localVarRequest.Options): void {
         if (requestOptions && requestOptions.headers) {
             requestOptions.headers["Authorization"] = "Bearer " + this.accessToken;
         }
     }
-
-    productToken: string;
 }
 
 export class VoidAuth implements Authentication {
-    public username: string;
-    public password: string;
+    public username: string = '';
+    public password: string = '';
+
     applyToRequest(_: localVarRequest.Options): void {
         // Do nothing
     }
-
-    productToken: string;
 }
 
 export enum MessagesApiApiKeys {
@@ -571,10 +1784,11 @@ export class MessagesApi {
     }
     /**
      * 
-     * @summary CM's Bulk SMS Gateway enables you to send text messages to mobile phones all around the world in very high volume.                            The Bulk SMS Gateway API covers the interface between your application and the CM Platform by means of the HTTP protocol. Only bulk (free of charge for the end user) text messages are supported.
+     * @summary CM's Messaging Gateway enables you to send text messages to mobile phones all around the world in very high volume.                            The Messaging Gateway API covers the interface between your application and the CM Platform by means of the HTTP protocol. Only bulk (free of charge for the end user) text messages are supported.
      * @param message 
+     * @param {*} [options] Override http request options.
      */
-    public messagesSendMessage (message: MessageEnvelope) : Promise<{ response: http.ClientResponse; body: MessagesResponse;  }> {
+    public messagesSendMessage (message: MessageEnvelope, options: any = {}) : Promise<{ response: http.ClientResponse; body: MessagesResponse;  }> {
         const localVarPath = this.basePath + '/v1.0/message';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
@@ -585,6 +1799,7 @@ export class MessagesApi {
             throw new Error('Required parameter message was null or undefined when calling messagesSendMessage.');
         }
 
+        (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
 

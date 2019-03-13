@@ -21,7 +21,7 @@ const messagingApi = require("@cmdotcom/text-sdk");
 const yourProductToken = "";
 const myMessageApi = new messagingApi.MessageApiClient(yourProductToken);
 
-const result = myMessageApi.SendTextMessage("00316012345678", "TestSender", "Hello world?!");
+const result = myMessageApi.sendTextMessage(["00316012345678"], "TestSender", "Hello world?!");
 
 result.then((result) => {
     console.log(result);
@@ -30,9 +30,39 @@ result.then((result) => {
 });
 ```
 
-or send multiple with SendTextMessages:
+or send multiple
 ```javascript
-const result = myMessageApi.SendTextMessages(["00316012345678","003160000000"], "TestSender", "Hello world?!");
+const result = myMessageApi.sendTextMessage(["00316012345678","003160000000"], "TestSender", "Hello world?!");
+```
+
+ send rich messages using the message builder
+```javascript
+const richMessage = {
+    media: {
+        mediaName: "cm.com",
+        mediaUri: "https://avatars3.githubusercontent.com/u/8234794?s=200&v=4"
+    },
+    text: "Check out my image"
+};
+
+const suggestion = {
+    action: "openUrl",
+    label: "Click me",
+    url: "google.com"
+};
+
+const response = client.createMessage()
+    .setMessage(["00316012345678"], "TestSender", "Hello world?!")
+    .setAllowedChannels(["Viber"])
+    .setConversation([richMessage])
+    .setSuggestion([suggestion])
+    .send();
+
+response.then((result) => {
+    console.log(result);
+}).catch((error) => {
+    console.log(error);
+});
 ```
 
 ### License

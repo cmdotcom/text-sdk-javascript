@@ -1,4 +1,4 @@
-import * as CM from "../typescript-node-client/api";
+import * as CMTypes from "../typescript-node-client/api";
 
 class MessageApiClient {
 
@@ -8,41 +8,86 @@ class MessageApiClient {
         this.productToken = productToken;
     }
 
+    public createMessage() : Message {
+        return new Message(this.productToken);
+    }
+
     public SendTextMessage(to: string, from: string, message: string, reference: string = undefined) {
         return this.SendTextMessages([to], from, message, reference);
     }
-
+    
     public SendTextMessages(to: string[], from: string, message: string, reference: string = undefined) {
-        const api = new CM.MessagesApi();
+        return this.sendTextMessage(to, from, message, reference);
+    }
+    
+    public sendTextMessage(to: string[], from: string, message: string, reference: string = undefined) {
+        return this
+            .createMessage()
+            .setMessage(to, from, message, reference)
+            .send();
+    }
+}
 
-        const messageEnvelope = new CM.MessageEnvelope();
-        messageEnvelope.messages = new CM.Messages();
-        messageEnvelope.messages.authentication = new CM.Authentication();
-        messageEnvelope.messages.authentication.productToken = this.productToken;
+class Message extends CMTypes.MessageEnvelope {
 
-        const msg = new CM.Message();
+    private api: CMTypes.MessagesApi;
+
+    constructor(productToken: string) {
+        super();
+
+        this.api = new CMTypes.MessagesApi();
+        this.messages = new CMTypes.Messages();
+        this.messages.authentication = new CMTypes.Authentication();
+        this.messages.authentication.productToken = productToken;
+    }
+
+    public setMessage(to: string[], from: string, message: string, reference: string = undefined): Message {
+        const msg = new CMTypes.Message();
         msg.customGrouping = "text-sdk-javascript";
         msg.from = from;
-        msg.body = new CM.MessageBody();
+        msg.body = new CMTypes.MessageBody();
         msg.body.type = "AUTO";
         msg.body.content = message;
 
         msg.reference = reference;
         msg.to = this.createRecipients(to);
 
-        messageEnvelope.messages.msg = new Array<CM.Message>();
-        messageEnvelope.messages.msg.push(msg);
+        this.messages.msg = new Array<CMTypes.Message>();
+        this.messages.msg.push(msg);
 
-        // Send the message
-        let result = api.messagesSendMessage(messageEnvelope);
-
-        // Return the promise.
-        return result;
+        return this;
     }
 
-    private createRecipients(recipients: string[]) {
+    public setAllowedChannels(channels: string[]): Message {
+        if (channels && channels.length > 0) {
+            this.messages.msg[0].allowedChannels = channels;
+        }
+        return this;
+    }
+
+    public setConversation(conversation: CMTypes.RichMessage[]): Message {
+        if (this.messages.msg[0].richContent === undefined) {
+            this.messages.msg[0].richContent = new CMTypes.RichContent();
+        }
+        this.messages.msg[0].richContent.conversation = conversation;
+        return this;
+    }
+
+    public setSuggestion(suggestions: CMTypes.Suggestion[]): Message {
+        if (this.messages.msg[0].richContent === undefined) {
+            this.messages.msg[0].richContent = new CMTypes.RichContent();
+        }
+        this.messages.msg[0].richContent.suggestions = suggestions;
+        return this;
+    }
+
+    public send(): Promise<{ body: CMTypes.MessagesResponse;  }> {
+        return this.api.messagesSendMessage(this);
+    }
+
+    private createRecipients(recipients: string[]): CMTypes.Recipient[] {
         return recipients.map((number: string) => {
-            const recipient: CM.Recipient = {
+            const recipient: CMTypes.Recipient = {
                 number: number
             };
             return recipient;
@@ -50,4 +95,4 @@ class MessageApiClient {
     }
 }
 
-export {MessageApiClient};
+export { MessageApiClient, Message, CMTypes };
