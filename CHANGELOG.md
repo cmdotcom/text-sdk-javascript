@@ -1,3 +1,7 @@
+## [1.1.1] - 2019-xx-xx - Not released yet
+### Security
+- Updated dependencies (audit-fixes).
+
 ## [1.1.0] - 2019-03-13
 ### Added
 - Added several features for RichContent in messages.
