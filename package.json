@@ -1,6 +1,6 @@
 {
   "name": "@cmdotcom/text-sdk",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Package to make it very easy to send text messages with CM.com",
   "keywords": [
     "cm",
@@ -39,25 +39,25 @@
   "author": "CM.com",
   "license": "MIT",
   "dependencies": {
-    "bluebird": "~3.5.5",
+    "bluebird": "~3.7.2",
     "http": "~0.0.0",
     "request": "~2.88.0"
   },
   "devDependencies": {
-    "@types/chai": "~4.1.7",
-    "@types/chai-as-promised": "~7.1.0",
+    "@types/chai": "~4.2.8",
+    "@types/chai-as-promised": "~7.1.2",
     "@types/mocha": "~5.2.7",
     "@types/node": "~8.10.43",
     "chai": "~4.2.0",
     "chai-as-promised": "~7.1.1",
-    "codecov": "~3.6.1",
+    "codecov": "~3.6.2",
     "mocha": "~6.2.1",
-    "nock": "~11.3.5",
+    "nock": "~11.7.2",
     "nyc": "~14.1.1",
-    "source-map-support": "~0.5.12",
-    "ts-node": "~8.3.0",
-    "tslint": "~5.18.0",
-    "typescript": "~3.6.3"
+    "source-map-support": "~0.5.16",
+    "ts-node": "~8.6.2",
+    "tslint": "~5.20.1",
+    "typescript": "~3.7.5"
   },
   "scripts": {
     "build": "tsc",
