@@ -129,8 +129,41 @@ describe("MessageApiClient+MessageBuilder", () => {
 
         const response = client.createMessage()
             .setMessage(["00316012345678"], "TestSender", "Hello world?!")
-            .setAllowedChannels(["Viber"])
+            .setAllowedChannels(["WhatsApp"])
             .setTemplate(whatsappTemplate)
+            .send();
+
+        expect(response).to.be.eventually.fulfilled.and.to.satisfy((response) => {
+            return response.body.details === "Created 1 message(s)";
+        });
+    });
+
+    const richWhatsappTemplate: CMTypes.Template = {
+        whatsapp: {
+            elementName: 'template-name',
+            language: {
+                code: 'en',
+                policy: 'deterministic'
+            },
+            namespace: 'the-namespace-of-template',
+            components: [{
+                type: 'body',
+                parameters: [{
+                    type: 'text',
+                    text: 'firstname'
+                }]
+            }]
+        }
+    };
+
+    it("should create a valid http(s) request, when using the message-builder with a rich template", () => {
+        const yourProductToken = "dddd";
+        const client = new MessageApiClient(yourProductToken);
+
+        const response = client.createMessage()
+            .setMessage(["00316012345678"], "TestSender", "Hello world?!")
+            .setAllowedChannels(["WhatsApp"])
+            .setTemplate(richWhatsappTemplate)
             .send();
 
         expect(response).to.be.eventually.fulfilled.and.to.satisfy((response) => {

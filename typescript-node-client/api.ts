@@ -1262,6 +1262,94 @@ export class ViewLocation {
 }
 
 /**
+* Dynamic content of the message. Separated in in different sections.
+*/
+export class Component {
+    /**
+    * Required, describes the component type. Possible values: header, content, footer.
+    */
+    'type'?: string;
+    /**
+    * Can be empty. Array containing the dynamic content of the message.
+    */
+    'parameters'?: Array<ComponentParameter>;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "type",
+            "baseName": "type",
+            "type": "string"
+        },
+        {
+            "name": "parameters",
+            "baseName": "parameters",
+            "type": "Array<ComponentParameter>"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return Component.attributeTypeMap;
+    }
+}
+
+/**
+* Dynamic content of a media template message.
+*/
+export class ComponentParameter {
+    /**
+    * Describes the parameter type. Possible values: text, currency, date_time, image, document.
+    */
+    'type'?: string;
+    'text'?: string;
+    'image'?: Media;
+    /**
+    * Note: Only PDF documents are currently supported for media message templates.
+    */
+    'document'?: Media;
+    'currency'?: any;
+    'dateTime'?: any;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "type",
+            "baseName": "type",
+            "type": "string"
+        },
+        {
+            "name": "text",
+            "baseName": "text",
+            "type": "string"
+        },
+        {
+            "name": "image",
+            "baseName": "image",
+            "type": "Media"
+        },
+        {
+            "name": "document",
+            "baseName": "document",
+            "type": "Media"
+        },
+        {
+            "name": "currency",
+            "baseName": "currency",
+            "type": "any"
+        },
+        {
+            "name": "dateTime",
+            "baseName": "date_time",
+            "type": "any"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return ComponentParameter.attributeTypeMap;
+    }
+}
+
+/**
 * Whatsapp template, see https://developers.facebook.com/docs/whatsapp/api/messages/message-templates  for more information
 */
 export class WhatsappTemplate {
@@ -1281,6 +1369,10 @@ export class WhatsappTemplate {
     * Source: https://developers.facebook.com/docs/whatsapp/api/messages/message-templates  This field is an array of values to apply to variables in the template
     */
     'localizableParams'?: Array<LocalizableParam>;
+    /**
+    * Source: https://developers.facebook.com/docs/whatsapp/api/messages/message-templates/media-message-templates  This field is an array of components to apply to variables in the template
+    */
+    'components'?: Array<Component>;
 
     static discriminator: string | undefined = undefined;
 
@@ -1304,7 +1396,12 @@ export class WhatsappTemplate {
             "name": "localizableParams",
             "baseName": "localizable_params",
             "type": "Array<LocalizableParam>"
-        }    ];
+        },
+        {
+            "name": "components",
+            "baseName": "components",
+            "type": "Array<Component>"
+        }];
 
     static getAttributeTypeMap() {
         return WhatsappTemplate.attributeTypeMap;
