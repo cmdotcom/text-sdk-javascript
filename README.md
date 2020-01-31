@@ -35,7 +35,7 @@ or send multiple
 const result = myMessageApi.sendTextMessage(["00316012345678","003160000000"], "TestSender", "Hello world?!");
 ```
 
- send rich messages using the message builder
+send rich messages using the message builder
 ```javascript
 const richMessage = {
     media: {
@@ -56,6 +56,39 @@ const response = client.createMessage()
     .setAllowedChannels(["Viber"])
     .setConversation([richMessage])
     .setSuggestion([suggestion])
+    .send();
+
+response.then((result) => {
+    console.log(result);
+}).catch((error) => {
+    console.log(error);
+});
+```
+
+or send whatsapp template messages using the message builder
+```javascript
+const template = {
+    whatsapp: {
+        elementName: 'template-name',
+        language: {
+            code: 'en',
+            policy: 'deterministic'
+        },
+        namespace: 'the-namespace-of-template',
+        components: [{
+            type: 'body',
+            parameters: [{
+                type: 'text',
+                text: 'firstname'
+            }]
+        }]
+    }
+};
+
+const response = client.createMessage()
+    .setMessage(["00316012345678"], "TestSender", "Hello world?!")
+    .setAllowedChannels(["WhatsApp"])
+    .setTemplate(template)
     .send();
 
 response.then((result) => {

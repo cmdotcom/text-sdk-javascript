@@ -1,4 +1,7 @@
-## [1.1.1] - 2019-xx-xx - Not released yet
+## [1.2.0] - 2020-01-30
+### Added
+- Support for whatsapp templates.
+
 ### Security
 - Updated dependencies (audit-fixes).
 

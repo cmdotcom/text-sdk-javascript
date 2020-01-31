@@ -81,6 +81,18 @@ class Message extends CMTypes.MessageEnvelope {
         return this;
     }
 
+    public setTemplate(template: CMTypes.Template): Message {
+        if (this.messages.msg[0].richContent === undefined) {
+            this.messages.msg[0].richContent = new CMTypes.RichContent();
+        }
+        this.messages.msg[0].richContent.conversation = [
+            {
+                template: template
+            }
+        ];
+        return this;
+    }
+
     public send(): Promise<{ body: CMTypes.MessagesResponse;  }> {
         return this.api.messagesSendMessage(this);
     }
