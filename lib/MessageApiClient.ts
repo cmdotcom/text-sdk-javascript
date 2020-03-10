@@ -163,3 +163,6 @@ export class Message extends CMTypes.MessageEnvelope {
         return this.messages.msg[0].richContent;
     }
 }
+
+// exported for backwards compatibility
+export { CMTypes };

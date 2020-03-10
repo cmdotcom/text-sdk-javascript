@@ -54,13 +54,14 @@
     "mocha": "~6.2.1",
     "nock": "~11.7.2",
     "nyc": "~14.1.1",
+    "rimraf": "^3.0.2",
     "source-map-support": "~0.5.16",
     "ts-node": "~8.6.2",
     "tslint": "~5.20.1",
     "typescript": "~3.7.5"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "npx rimraf ./dist/ && tsc",
     "lint": "tslint --project ./",
     "test": "nyc mocha spec/**/*.spec.ts",
     "posttest": "nyc report --reporter=json && codecov -f coverage/*.json"

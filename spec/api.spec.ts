@@ -1,4 +1,4 @@
-import { MessageApiClient, CMTypes } from "../lib/MessageApiClient";
+import { MessageApiClient, RichMessage, Template, Suggestion } from "../lib/MessageApiClient";
 
 const chai = require("chai");
 const chaiAsPromised = require("chai-as-promised");
@@ -63,7 +63,7 @@ describe("MessageApiClient", () => {
 });
 
 describe("MessageApiClient+MessageBuilder", () => {
-    const richMessage: CMTypes.RichMessage = {
+    const richMessage: RichMessage = {
         media: {
             mediaName: "cm.com",
             mediaUri: "https://avatars3.githubusercontent.com/u/8234794?s=200&v=4"
@@ -86,7 +86,7 @@ describe("MessageApiClient+MessageBuilder", () => {
         });
     });
 
-    const suggestion: CMTypes.Suggestion = {
+    const suggestion: Suggestion = {
         action: "openUrl",
         label: "Click me",
         url: "google.com"
@@ -107,7 +107,7 @@ describe("MessageApiClient+MessageBuilder", () => {
         });
     });
 
-    const whatsappTemplate: CMTypes.Template = {
+    const whatsappTemplate: Template = {
         whatsapp: {
             elementName: 'template-name',
             language: {
@@ -138,7 +138,7 @@ describe("MessageApiClient+MessageBuilder", () => {
         });
     });
 
-    const richWhatsappTemplate: CMTypes.Template = {
+    const richWhatsappTemplate: Template = {
         whatsapp: {
             elementName: 'template-name',
             language: {
