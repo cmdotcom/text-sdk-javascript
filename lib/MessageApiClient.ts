@@ -105,11 +105,7 @@ export class Message extends CMTypes.MessageEnvelope {
      * @param channels array of allowed channels. Any of "SMS", "Viber", "RCS", "Apple Business Chat" and "WhatsApp"
      */
     public setAllowedChannels(channels: Channel[]): Message {
-        if (channels && channels.length > 0) {
-            this.messages.msg[0].allowedChannels = channels;
-        } else {
-            this.messages.msg[0].allowedChannels = [];
-        }
+        this.messages.msg[0].allowedChannels = channels || [];
         return this;
     }
 
