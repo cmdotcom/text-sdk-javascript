@@ -1,3 +1,1 @@
-import {MessageApiClient} from "./MessageApiClient";
-
-export {MessageApiClient};
+export * from "./MessageApiClient";
