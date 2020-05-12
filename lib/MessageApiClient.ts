@@ -45,8 +45,10 @@ export class MessageApiClient {
 
     /**
      * Send an SMS message
-     * @param to array of recipients for the message, specify the numbers in international format with leading 00
-     * @param from the sender of the message, specify valid Sender ID 
+     * @param to array of recipients for the message, specify the numbers in international format with leading 00   
+     * For Twitter: use the Twitter Snowflake ID
+     * @param from the sender of the message, specify valid Sender ID.   
+     * For Twitter: use the Twitter Snowflake ID of the account you want to use as sender.
      * @param message the body of the SMS message to be sent
      * @param reference (optional) reference to the message to query it later in the CM.platform.
      */public sendTextMessage(to: string[], from: string, message: string, reference: string = undefined) {
@@ -78,8 +80,10 @@ export class Message extends CMTypes.MessageEnvelope {
 
     /**
      * Sets the essential message parameters. 
-     * @param to array of recipients for the message, specify the numbers in international format with leading 00
-     * @param from the sender of the message, specify valid Sender ID 
+     * @param to array of recipients for the message, specify the numbers in international format with leading 00.   
+     * For Twitter: use the Twitter Snowflake ID
+     * @param from the sender of the message, specify valid Sender ID.   
+     * For Twitter: use the Twitter Snowflake ID of the account you want to use as sender.
      * @param message the body of the SMS message to be sent
      * @param reference (optional) reference to the message to query it later in the CM.platform.
      */
@@ -102,7 +106,7 @@ export class Message extends CMTypes.MessageEnvelope {
 
     /**
      * Sets the allowed channels to use. Default is to allow any channel configured for your account
-     * @param channels array of allowed channels. Any of "SMS", "Viber", "RCS", "Apple Business Chat" and "WhatsApp"
+     * @param channels array of allowed channels. Any of "SMS", "Viber", "RCS", "Apple Business Chat", "WhatsApp" and "Twitter"
      */
     public setAllowedChannels(channels: Channel[]): Message {
         this.messages.msg[0].allowedChannels = channels || [];
