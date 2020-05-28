@@ -28,7 +28,8 @@
     "rbm",
     "mms",
     "rich sms",
-    "rich communication services"
+    "rich communication services",
+    "twitter"
   ],
   "repository": {
     "type": "git",
