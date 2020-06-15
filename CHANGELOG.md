@@ -1,3 +1,10 @@
+## [1.3.0] - 2020-06-15
+### Added
+- Support for Twitter as channel.
+
+### Security
+- Updated dependencies (audit-fixes).
+
 ## [1.2.0] - 2020-01-30
 ### Added
 - Support for whatsapp templates.
