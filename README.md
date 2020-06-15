@@ -1,7 +1,7 @@
 ## @cmdotcom/text-sdk: A helper library to send text messages.
 
 [![Published on NPM](https://img.shields.io/npm/v/@cmdotcom/text-sdk.svg)](https://www.npmjs.com/package/@cmdotcom/text-sdk)
-[![Travis (.com)](https://img.shields.io/travis/com/cmdotcom/text-sdk-javascript.svg)](https://travis-ci.com/cmdotcom/text-sdk-javascript)
+![Node.js CI](https://github.com/cmdotcom/text-sdk-javascript/workflows/Node.js%20CI/badge.svg)
 [![Codecov](https://img.shields.io/codecov/c/github/cmdotcom/text-sdk-javascript.svg)](https://codecov.io/gh/cmdotcom/text-sdk-javascript)
 [![Codacy grade](https://img.shields.io/codacy/grade/576913f8bbde429cb9cd15998f6ee070.svg)](https://app.codacy.com/project/CMTelecom/text-sdk-javascript/dashboard)
 
