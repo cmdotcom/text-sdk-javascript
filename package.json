@@ -51,7 +51,7 @@
     "@types/node": "~8.10.43",
     "chai": "~4.2.0",
     "chai-as-promised": "~7.1.1",
-    "codecov": "~3.6.2",
+    "codecov": "~3.7.1",
     "mocha": "~6.2.3",
     "nock": "~11.7.2",
     "nyc": "~14.1.1",
