@@ -1885,7 +1885,7 @@ export class MessagesApi {
      * @param message 
      * @param {*} [options] Override http request options.
      */
-    public messagesSendMessage (message: MessageEnvelope, options: any = {}) : Promise<{ response: http.ClientResponse; body: MessagesResponse;  }> {
+    public messagesSendMessage (message: MessageEnvelope, options: any = {}) : Promise<{ response: http.IncomingMessage; body: MessagesResponse;  }> {
         const localVarPath = this.basePath + '/v1.0/message';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
@@ -1919,7 +1919,7 @@ export class MessagesApi {
                 localVarRequestOptions.form = localVarFormParams;
             }
         }
-        return new Promise<{ response: http.ClientResponse; body: MessagesResponse;  }>((resolve, reject) => {
+        return new Promise<{ response: http.IncomingMessage; body: MessagesResponse;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);

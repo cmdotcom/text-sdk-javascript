@@ -1,3 +1,8 @@
+## [1.3.1] - 2020-08-19
+### Fixed
+- Moved from ClientResponse to IncomingMessage to support higher node/ts versions.
+- Updated devDependencies to for audit fixes.
+
 ## [1.3.0] - 2020-06-15
 ### Added
 - Support for Twitter as channel.
