@@ -106,7 +106,8 @@ export class Message extends CMTypes.MessageEnvelope {
 
     /**
      * Sets the allowed channels to use. Default is to allow any channel configured for your account
-     * @param channels array of allowed channels. Any of "SMS", "Viber", "RCS", "Apple Business Chat", "WhatsApp" and "Twitter"
+     * @param channels array of allowed channels. 
+     * Any of "SMS", "Viber", "RCS", "Apple Business Chat", "WhatsApp" and "Twitter"
      */
     public setAllowedChannels(channels: Channel[]): Message {
         this.messages.msg[0].allowedChannels = channels || [];
