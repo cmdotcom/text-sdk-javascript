@@ -144,7 +144,7 @@ export class Message extends CMTypes.MessageEnvelope {
     /**
      * Sends the message to the CM.com Platform 
      */
-    public send(): Promise<{ body: MessagesResponse; response: http.ClientResponse }> {
+    public send(): Promise<{ body: MessagesResponse; response: http.IncomingMessage }> {
         return this.api.messagesSendMessage(this);
     }
 
