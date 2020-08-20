@@ -1,3 +1,7 @@
+## [1.3.2] - 2020-08-20
+### Fixed
+- Moved from ClientResponse to IncomingMessage in the external api as well.
+
 ## [1.3.1] - 2020-08-19
 ### Fixed
 - Moved from ClientResponse to IncomingMessage to support higher node/ts versions.
