@@ -1,3 +1,7 @@
+## [1.3.3] - 2020-12-23
+### Added
+- Support for the MobilePush channel
+
 ## [1.3.2] - 2020-08-20
 ### Fixed
 - Moved from ClientResponse to IncomingMessage in the external api as well.
