@@ -1,3 +1,7 @@
+## [1.3.4] - 2021-04-09
+### Added
+- Support for the Facebook Messenger and Google Business Messages channel
+
 ## [1.3.3] - 2020-12-23
 ### Added
 - Support for the MobilePush channel
