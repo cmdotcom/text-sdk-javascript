@@ -1,7 +1,7 @@
 import * as CMTypes from "../typescript-node-client/api";
 import http = require('http');
 
-export type Channel = "SMS" | "Viber" | "RCS" | "Apple Business Chat" | "WhatsApp" | "Twitter" | "MobilePush" | "Facebook Messenger" | "Google Business Messages";
+export type Channel = "SMS" | "Viber" | "RCS" | "Apple Business Chat" | "WhatsApp" | "Twitter" | "MobilePush" | "Facebook Messenger" | "Google Business Messages" | "Instagram";
 export type RichMessage = CMTypes.RichMessage;
 export type Suggestion = CMTypes.Suggestion;
 export type Template = CMTypes.Template;

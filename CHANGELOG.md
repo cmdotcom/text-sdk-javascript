@@ -1,3 +1,7 @@
+## [1.3.5] - 2021-07-06
+### Added
+- Support for the Instagram channel
+
 ## [1.3.4] - 2021-04-09
 ### Added
 - Support for the Facebook Messenger and Google Business Messages channel
