@@ -1,3 +1,7 @@
+## [1.x.x] - 2021-xx-xx
+### Updated
+- Several dependency updates, in preparation for interactive messages (WhatsApp).
+
 ## [1.3.5] - 2021-07-06
 ### Added
 - Support for the Instagram channel
