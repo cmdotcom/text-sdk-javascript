@@ -51,10 +51,12 @@ export class MessageApiClient {
      * For Twitter: use the Twitter Snowflake ID of the account you want to use as sender.
      * @param message the body of the SMS message to be sent
      * @param reference (optional) reference to the message to query it later in the CM.platform.
-     */public sendTextMessage(to: string[], from: string, message: string, reference: string = undefined) {
+     */
+    public sendTextMessage(to: string[], from: string, message: string, reference: string = undefined) {
         return this
             .createMessage()
             .setMessage(to, from, message, reference)
+            .setAllowedChannels(['SMS'])
             .send();
     }
 }
