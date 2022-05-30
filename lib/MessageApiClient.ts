@@ -13,20 +13,22 @@ export type MessagesResponse = CMTypes.MessagesResponse;
 export class MessageApiClient {
 
     private readonly productToken: string;
+    private readonly basePath: string;
 
     /**
      * Create a new client instance with a provided authentication key
      * @param productToken Private autorization token for CM.com
      */
-    constructor(productToken: string) {
+    constructor(productToken: string, basePath: string) {
         this.productToken = productToken;
+		this.basePath = basePath;
     }
 
     /**
      * Create a new message builder
      */
     public createMessage() : Message {
-        return new Message(this.productToken);
+        return new Message(this.productToken, this.basePath);
     }
 
     /**
@@ -35,7 +37,7 @@ export class MessageApiClient {
     public SendTextMessage(to: string, from: string, message: string, reference: string = undefined) {
         return this.SendTextMessages([to], from, message, reference);
     }
-      
+
     /**
      * @deprecated use .sendTextMessages(...) instead
      */
@@ -45,9 +47,9 @@ export class MessageApiClient {
 
     /**
      * Send an SMS message
-     * @param to array of recipients for the message, specify the numbers in international format with leading 00   
+     * @param to array of recipients for the message, specify the numbers in international format with leading 00
      * For Twitter: use the Twitter Snowflake ID
-     * @param from the sender of the message, specify valid Sender ID.   
+     * @param from the sender of the message, specify valid Sender ID.
      * For Twitter: use the Twitter Snowflake ID of the account you want to use as sender.
      * @param message the body of the SMS message to be sent
      * @param reference (optional) reference to the message to query it later in the CM.platform.
@@ -63,26 +65,26 @@ export class MessageApiClient {
  * Message object to send via the CM.com platform
  */
 export class Message extends CMTypes.MessageEnvelope {
-    
+
     private api: CMTypes.MessagesApi;
 
     /**
      * @deprecated Please use the MessageApiClient.createMessage instead.
      */
-    constructor(productToken: string) {
+    constructor(productToken: string, basePath: string) {
         super();
 
-        this.api = new CMTypes.MessagesApi();
+        this.api = new CMTypes.MessagesApi(basePath);
         this.messages = new CMTypes.Messages();
         this.messages.authentication = new CMTypes.Authentication();
         this.messages.authentication.productToken = productToken;
     }
 
     /**
-     * Sets the essential message parameters. 
-     * @param to array of recipients for the message, specify the numbers in international format with leading 00.   
+     * Sets the essential message parameters.
+     * @param to array of recipients for the message, specify the numbers in international format with leading 00.
      * For Twitter: use the Twitter Snowflake ID
-     * @param from the sender of the message, specify valid Sender ID.   
+     * @param from the sender of the message, specify valid Sender ID.
      * For Twitter: use the Twitter Snowflake ID of the account you want to use as sender.
      * @param message the body of the SMS message to be sent
      * @param reference (optional) reference to the message to query it later in the CM.platform.
@@ -106,7 +108,7 @@ export class Message extends CMTypes.MessageEnvelope {
 
     /**
      * Sets the allowed channels to use. Default is to allow any channel configured for your account
-     * @param channels array of allowed channels. 
+     * @param channels array of allowed channels.
      * Any of "SMS", "Viber", "RCS", "Apple Business Chat", "WhatsApp" and "Twitter"
      */
     public setAllowedChannels(channels: Channel[]): Message {
@@ -115,7 +117,7 @@ export class Message extends CMTypes.MessageEnvelope {
     }
 
     /**
-     * Sets the rich message conversation 
+     * Sets the rich message conversation
      * @param conversation array of rich message conversation objects
      */
     public setConversation(conversation: RichMessage[]): Message {
@@ -124,7 +126,7 @@ export class Message extends CMTypes.MessageEnvelope {
     }
 
      /**
-     * Sets the rich message suggestions 
+     * Sets the rich message suggestions
      * @param conversation array of rich message suggestion objects
      */
     public setSuggestion(suggestions: Suggestion[]): Message {
@@ -133,7 +135,7 @@ export class Message extends CMTypes.MessageEnvelope {
     }
 
     /**
-     * Sets the rich message template 
+     * Sets the rich message template
      * @param template template definition and usage object
      */
     public setTemplate(template: Template): Message {
@@ -142,7 +144,7 @@ export class Message extends CMTypes.MessageEnvelope {
     }
 
     /**
-     * Sends the message to the CM.com Platform 
+     * Sends the message to the CM.com Platform
      */
     public send(): Promise<{ body: MessagesResponse; response: http.IncomingMessage }> {
         return this.api.messagesSendMessage(this);
