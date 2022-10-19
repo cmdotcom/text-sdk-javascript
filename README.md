@@ -3,13 +3,11 @@
 [![Published on NPM](https://img.shields.io/npm/v/@cmdotcom/text-sdk.svg)](https://www.npmjs.com/package/@cmdotcom/text-sdk)
 ![Node.js CI](https://github.com/cmdotcom/text-sdk-javascript/workflows/Node.js%20CI/badge.svg)
 [![Codecov](https://img.shields.io/codecov/c/github/cmdotcom/text-sdk-javascript.svg)](https://codecov.io/gh/cmdotcom/text-sdk-javascript)
-[![Codacy grade](https://img.shields.io/codacy/grade/576913f8bbde429cb9cd15998f6ee070.svg)](https://app.codacy.com/project/CMTelecom/text-sdk-javascript/dashboard)
-
 
 
 Want to send text-messages in your Node.js application? Then you are at the right place.
 
-The package is currently limited in features compared to the CM gateway, but if you want to get all the functionalities, go to: [CM.com API Docs](https://docs.cmtelecom.com/bulk-sms/v1.0)
+The package is currently limited in features compared to the CM gateway, but if you want to get all the functionalities, go to: [CM.com API Docs](https://developers.cm.com/messaging/docs)
 
 ### Usage
 #### Node.JS
