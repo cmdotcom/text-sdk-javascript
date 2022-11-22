@@ -1,7 +1,7 @@
 import * as CMTypes from "../typescript-node-client/api";
 import http = require('http');
 
-export type Channel = "SMS" | "Viber" | "RCS" | "Apple Business Chat" | "WhatsApp" | "Twitter" | "MobilePush" | "Facebook Messenger" | "Google Business Messages" | "Instagram";
+export type Channel = "SMS" | "Viber" | "RCS" | "Apple Business Chat" | "WhatsApp" | "Telegram Messenger" | "Twitter" | "MobilePush" | "Facebook Messenger" | "Google Business Messages" | "Instagram";
 export type RichMessage = CMTypes.RichMessage;
 export type Suggestion = CMTypes.Suggestion;
 export type Template = CMTypes.Template;
@@ -107,7 +107,7 @@ export class Message extends CMTypes.MessageEnvelope {
     /**
      * Sets the allowed channels to use. Default is to allow any channel configured for your account
      * @param channels array of allowed channels. 
-     * Any of "SMS", "Viber", "RCS", "Apple Business Chat", "WhatsApp" and "Twitter"
+     * Any of "SMS", "Viber", "RCS", "Apple Business Chat", "WhatsApp", "Telegram Messenger" and "Twitter"
      */
     public setAllowedChannels(channels: Channel[]): Message {
         this.messages.msg[0].allowedChannels = channels || [];
