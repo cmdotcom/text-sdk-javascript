@@ -9,12 +9,6 @@
 ### Updated
 - Several dependency updates.
 
-## [1.3.6] - 2022-12-05
-### Added
-- Support for the Telegram channel
-### Updated
-- Several dependency updates.
-
 ## [1.3.5] - 2021-07-06
 ### Added
 - Support for the Instagram channel
