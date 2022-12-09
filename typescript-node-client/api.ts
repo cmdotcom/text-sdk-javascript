@@ -1435,7 +1435,7 @@ export class RichMessage {
      'interactive'?: WhatsAppInteractive;
 
      /**
-    * Used to send an ABC listpicker message.
+    * Used to send an Apple Messages for Business listpicker message.
     */
      'listPicker'?: ListPicker;
 
