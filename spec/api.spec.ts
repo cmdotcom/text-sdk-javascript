@@ -170,4 +170,53 @@ describe("MessageApiClient+MessageBuilder", () => {
             return response.body.details === "Created 1 message(s)";
         });
     });
+
+    const whatsAppInteractiveContent = {
+        type: 'list',
+        header: {
+            type: "text",
+            text: "your-header-content"
+        },
+        body: {
+            text: "your-text-message-content"
+        },
+        footer: {
+            text: "your-footer-content"
+        },
+        action: {
+            button: "cta-button-content",
+            sections: [{
+                title: "your-section-title1",
+                rows: [{
+                    id: "unique-row-identifier1",
+                    title: "row-title-content",
+                    description: "row-description-content"
+                }]
+            },
+            {
+                title: "your-section-title2",
+                rows: [{
+                    id: "unique-row-identifier2",
+                    title: "row-title-content",
+                    description: "row-description-content"
+                }]
+            }
+            ]
+        }
+    };
+
+    it("should create a valid http(s) request, when using the message-builder with a interactive WhatsApp message", () => {
+        const yourProductToken = "dddd";
+        const client = new MessageApiClient(yourProductToken);
+
+        const response = client.createMessage()
+            .setMessage(["00316012345678"], "TestSender", "Hello world?!")
+            .setAllowedChannels(["WhatsApp"])
+            .setInteractive(whatsAppInteractiveContent)
+            .send();
+
+        expect(response).to.be.eventually.fulfilled.and.to.satisfy((response) => {
+            return response.body.details === "Created 1 message(s)";
+        });
+    });
 });

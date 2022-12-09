@@ -96,5 +96,54 @@ response.then((result) => {
 });
 ```
 
+or send whatsapp interactive messages using the message builder
+```javascript
+const whatsAppInteractiveContent = {
+        type: 'list',
+        header: {
+            type: "text",
+            text: "your-header-content"
+        },
+        body: {
+            text: "your-text-message-content"
+        },
+        footer: {
+            text: "your-footer-content"
+        },
+        action: {
+            button: "cta-button-content",
+            sections: [{
+                title: "your-section-title1",
+                rows: [{
+                    id: "unique-row-identifier1",
+                    title: "row-title-content",
+                    description: "row-description-content"
+                }]
+            },
+            {
+                title: "your-section-title2",
+                rows: [{
+                    id: "unique-row-identifier2",
+                    title: "row-title-content",
+                    description: "row-description-content"
+                }]
+            }
+            ]
+        }
+};
+
+const response = client.createMessage()
+    .setMessage(["00316012345678"], "TestSender", "Hello world?!")
+    .setAllowedChannels(["WhatsApp"])
+    .setInteractive(whatsAppInteractiveContent)
+    .send();
+
+response.then((result) => {
+    console.log(result);
+}).catch((error) => {
+    console.log(error);
+});
+```
+
 ### License
 @cmdotcom/text-sdk is under the MIT license. See LICENSE file.
