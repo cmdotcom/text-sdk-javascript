@@ -261,7 +261,7 @@ describe("MessageApiClient+MessageBuilder", () => {
 
         const response = client.createMessage()
             .setMessage(["00316012345678"], "TestSender", "Hello world?!")
-            .setAllowedChannels(["Apple Business Chat"])
+            .setAllowedChannels(["Apple Messages for Business"])
             .setConversation([appleListPickerrichMessage])
             .send();
 
