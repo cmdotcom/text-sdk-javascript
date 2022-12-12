@@ -1,3 +1,8 @@
+## [1.4.1] - 2022-12-12
+### Changed
+- Update model for WhatsApp Interactive.
+
+
 ## [1.4.0] - 2022-12-09
 ### Added
 - Add missing models to send WhatsApp interactive messages
