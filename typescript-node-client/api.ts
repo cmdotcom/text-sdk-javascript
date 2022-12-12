@@ -143,34 +143,34 @@ export class ListPicker {
     /**
     * The label which will be shown to the end user to describe the contents of the list picker.
     */
-    'Label'?: string;
+    'label'?: string;
 
     /**
     *  An image, which will be shown to the end user to show information about the list picker
     */
-    'Media'?: Media;
+    'media'?: Media;
 
     /**
     *  The items which the end users can choose
     */
-    'Options'?: Array<ListItem>;
+    'options'?: Array<ListItem>;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "Label",
-            "baseName": "Label",
+            "name": "label",
+            "baseName": "label",
             "type": "string"
         },
         {
-            "name": "Media",
-            "baseName": "Media",
-            "type": "Media"
+            "name": "media",
+            "baseName": "media",
+            "type": "media"
         },
         {
-            "name": "Options",
-            "baseName": "Options",
+            "name": "options",
+            "baseName": "options",
             "type": "Array<ListItem>"
         }];
 
@@ -186,7 +186,7 @@ export class ListItem {
     /**
     *  The label which will be shown to the end user to describe the item.
     */
-    'Label'?: string;
+    'label'?: string;
 
     /**
     * An image, which will be shown to the end user to show information about the list item
@@ -197,8 +197,8 @@ export class ListItem {
 
     static attributeTypeMap: Array<{ name: string, baseName: string, type: string }> = [
         {
-            "name": "Label",
-            "baseName": "Label",
+            "name": "label",
+            "baseName": "label",
             "type": "string"
         },
         {

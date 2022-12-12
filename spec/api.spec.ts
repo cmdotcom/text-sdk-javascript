@@ -219,4 +219,54 @@ describe("MessageApiClient+MessageBuilder", () => {
             return response.body.details === "Created 1 message(s)";
         });
     });
+
+    const appleListPickerrichMessage: RichMessage = {
+        text: "Check out my image",
+        listPicker: {
+            label: "Please, pick a card",
+            media: {
+                "mediaUri": "https://static.thenounproject.com/png/393234-200.png"
+            },
+            options: [{
+                label: "Ace of Hearts",
+                media: {
+                    mediaUri: "https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.N7zZqoCvjxZZvwp2Zi1UVwHaH6%26pid%3D15.1&f=1"
+                }
+            },
+            {
+                label: "Ace of Spades",
+                media: {
+                    mediaUri: "https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.pixabay.com%2Fphoto%2F2013%2F07%2F12%2F12%2F01%2Fsuit-of-spades-145116_960_720.png&f=1"
+                }
+            },
+            {
+                label: "Ace of Diamonds",
+                media: {
+                    mediaUri: "https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.pixabay.com%2Fphoto%2F2012%2F05%2F07%2F18%2F37%2Fsuit-48941_960_720.png&f=1"
+                }
+            },
+            {
+                label: "Ace of Clubs",
+                media: {
+                    mediaUri: "https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fthumb%2F8%2F8a%2FSuitClubs.svg%2F709px-SuitClubs.svg.png&f=1"
+                }
+            }
+            ]
+        }
+    };
+
+    it("should create a valid http(s) request, when using the message-builder with a Apple for Business listpicker", () => {
+        const yourProductToken = "dddd";
+        const client = new MessageApiClient(yourProductToken);
+
+        const response = client.createMessage()
+            .setMessage(["00316012345678"], "TestSender", "Hello world?!")
+            .setAllowedChannels(["Apple Business Chat"])
+            .setConversation([appleListPickerrichMessage])
+            .send();
+
+        expect(response).to.be.eventually.fulfilled.and.to.satisfy((response) => {
+            return response.body.details === "Created 1 message(s)";
+        });
+    });
 });
