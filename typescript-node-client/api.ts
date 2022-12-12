@@ -258,13 +258,13 @@ export class WhatsAppInteractive {
             "type": "InteractiveHeader"
         },
         {
-            "name": "footer",
-            "baseName": "footer",
+            "name": "body",
+            "baseName": "body",
             "type": "InteractiveBody"
         },
         {
-            "name": "header",
-            "baseName": "header",
+            "name": "footer",
+            "baseName": "footer",
             "type": "InteractiveFooter"
         },
         {

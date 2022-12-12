@@ -1,6 +1,6 @@
 {
   "name": "@cmdotcom/text-sdk",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Package to make it very easy to send text messages with CM.com",
   "keywords": [
     "cm",
