@@ -137,6 +137,446 @@ class ObjectSerializer {
 }
 
 /**
+* Contains information for a listpicker
+*/
+export class ListPicker {
+    /**
+    * The label which will be shown to the end user to describe the contents of the list picker.
+    */
+    'label'?: string;
+
+    /**
+    *  An image, which will be shown to the end user to show information about the list picker
+    */
+    'media'?: Media;
+
+    /**
+    *  The items which the end users can choose
+    */
+    'options'?: Array<ListItem>;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "label",
+            "baseName": "label",
+            "type": "string"
+        },
+        {
+            "name": "media",
+            "baseName": "media",
+            "type": "media"
+        },
+        {
+            "name": "options",
+            "baseName": "options",
+            "type": "Array<ListItem>"
+        }];
+
+    static getAttributeTypeMap() {
+        return ListPicker.attributeTypeMap;
+    }
+}
+
+/**
+* Describes one item in a ListPicker/>.
+*/
+export class ListItem {
+    /**
+    *  The label which will be shown to the end user to describe the item.
+    */
+    'label'?: string;
+
+    /**
+    * An image, which will be shown to the end user to show information about the list item
+    */
+    'media'?: Media
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{ name: string, baseName: string, type: string }> = [
+        {
+            "name": "label",
+            "baseName": "label",
+            "type": "string"
+        },
+        {
+            "name": "media",
+            "baseName": "media",
+            "type": "media"
+        }];
+
+    static getAttributeTypeMap() {
+        return ListItem.attributeTypeMap;
+    }
+}
+
+/**
+* WhatsApp Interactive Messages />.
+*/
+export class WhatsAppInteractive {
+    /**
+    * The Type that will be used,
+    * either list or button
+    */
+    'type'?: string;
+
+    /**
+    * Your message’s header.
+    */
+    'header'?: InteractiveHeader
+
+    /**
+    * Required Your message’s body.
+    */
+    'body'?: InteractiveBody
+
+    /**
+    * Required Your message’s footer.
+    */
+    'footer'?: InteractiveFooter
+
+    /**
+    * Required. Inside action, you must nest:
+    * a button field with your button’s content, and
+    * at least one section object (maximum of 10).
+    */
+    'action'?: InteractiveAction
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{ name: string, baseName: string, type: string }> = [
+        {
+            "name": "type",
+            "baseName": "type",
+            "type": "string"
+        },
+        {
+            "name": "header",
+            "baseName": "header",
+            "type": "InteractiveHeader"
+        },
+        {
+            "name": "footer",
+            "baseName": "footer",
+            "type": "InteractiveBody"
+        },
+        {
+            "name": "header",
+            "baseName": "header",
+            "type": "InteractiveFooter"
+        },
+        {
+            "name": "action",
+            "baseName": "action",
+            "type": "InteractiveAction"
+        }];
+
+    static getAttributeTypeMap() {
+        return WhatsAppInteractive.attributeTypeMap;
+    }
+}
+
+/**
+* Part of WhatsApp interactive mesage
+*/
+export class InteractiveHeader {
+    /**
+    * Required.  The header type you would like to use.Supported values are:
+    * text: Used for List Messages and Reply Buttons.
+    */
+    'type'?: string;
+
+    /**
+    * Required if type is set to text.
+    *  Text for the header.Formatting allows emojis, but not markdown.
+    */
+    'text'?: string;
+
+     /**
+    * Required if type is set to text.
+    *  Text for the header.Formatting allows emojis, but not markdown.
+    */
+     'media'?: Media;
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{ name: string, baseName: string, type: string }> = [
+        {
+            "name": "type",
+            "baseName": "type",
+            "type": "string"
+        },
+        {
+            "name": "text",
+            "baseName": "text",
+            "type": "string"
+        },
+        {
+            "name": "media",
+            "baseName": "media",
+            "type": "media"
+        }];
+
+    static getAttributeTypeMap() {
+        return InteractiveHeader.attributeTypeMap;
+    }
+}
+
+/**
+* Part of WhatsApp interactive mesage
+*/
+export class InteractiveBody {
+    /**
+    * The body content of the message.
+    * Emojis and markdown are supported. Links are supported.
+    */
+    'text'?: string;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{ name: string, baseName: string, type: string }> = [
+        {
+            "name": "text",
+            "baseName": "text",
+            "type": "string"
+        }];
+
+    static getAttributeTypeMap() {
+        return InteractiveBody.attributeTypeMap;
+    }
+}
+
+/**
+* Part of WhatsApp interactive mesage
+*/
+export class InteractiveFooter {
+    /**
+    * The footer content. Emojis and markdown are supported. Links are supported.
+    * Maximum length: 60 characters
+    */
+    'text'?: string;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{ name: string, baseName: string, type: string }> = [
+        {
+            "name": "text",
+            "baseName": "text",
+            "type": "string"
+        }];
+    static getAttributeTypeMap() {
+        return InteractiveFooter.attributeTypeMap;
+    }
+}
+
+/**
+* Part of WhatsApp interactive mesage
+*/
+export class InteractiveAction {
+    /**
+    * Required for List Messages.
+    * Button content. It cannot be an empty string and must be unique within the message 
+    * Does not allow emojis or markdown.
+    */
+    'button'?: string;
+    /**
+    * Required for Reply Button Messages.
+    */
+    'buttons'?: Array<InteractiveButton>;
+    /**
+    * Required for List Messages.
+    */
+    'sections'?: Array<InteractiveSection>;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{ name: string, baseName: string, type: string }> = [
+        {
+            "name": "button",
+            "baseName": "button",
+            "type": "button"
+        },
+        {
+            "name": "buttons",
+            "baseName": "buttons",
+            "type": "Array<InteractiveButton>"
+        },
+        {
+            "name": "sections",
+            "baseName": "sections",
+            "type": "Array<InteractiveSection>"
+        }];
+
+    static getAttributeTypeMap() {
+        return InteractiveAction.attributeTypeMap;
+    }
+}
+
+/**
+* Part of WhatsApp interactive mesage
+*/
+export class InteractiveButton {
+    /**
+    * type: only supported type is reply (for Reply Button Messages).
+    */
+    'type'?: string;
+
+    /**
+    * Button title.It cannot be an empty string and must be unique within the message. 
+    * Does not allow emojis or markdown. Maximum length: 20 characters.
+    */
+    'title'?: string;
+
+    /**
+    * id: Unique identifier for your button. 
+    * This ID is returned in the webhook when the button is clicked by the user.
+    */
+    'id'?: string;
+
+    /**
+    * Reply Message for your button.
+    */
+    'reply'?: string;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{ name: string, baseName: string, type: string }> = [
+        {
+            "name": "type",
+            "baseName": "type",
+            "type": "string"
+        },
+        {
+            "name": "title",
+            "baseName": "title",
+            "type": "string"
+        },
+        {
+            "name": "id",
+            "baseName": "id",
+            "type": "string"
+        },
+        {
+            "name": "reply",
+            "baseName": "reply",
+            "type": "string"
+        }];
+
+    static getAttributeTypeMap() {
+        return InteractiveButton.attributeTypeMap;
+    }
+}
+
+/**
+* Part of WhatsApp interactive mesage
+*/
+export class ReplyMessage {
+    /**
+    * The options to select.
+    */
+    'id'?: string;
+
+    /**
+    * The options to select.
+    */
+    'title'?: string;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{ name: string, baseName: string, type: string }> = [
+        {
+            "name": "id",
+            "baseName": "id",
+            "type": "string"
+        },
+        {
+            "name": "title",
+            "baseName": "title",
+            "type": "string"
+        }];
+
+    static getAttributeTypeMap() {
+        return ReplyMessage.attributeTypeMap;
+    }
+}
+
+/**
+* Part of WhatsApp interactive mesage
+*/
+export class InteractiveSection {
+    /**
+    * Title of the row..
+    */
+    'title'?: string;
+
+    /**
+    * Contains a list of rows.    
+    */
+    'rows'?: Array<Rows>;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{ name: string, baseName: string, type: string }> = [
+        {
+            "name": "title",
+            "baseName": "title",
+            "type": "string"
+        },
+        {
+            "name": "rows",
+            "baseName": "rows",
+            "type": "Array<Rows>"
+        }];
+
+    static getAttributeTypeMap() {
+        return InteractiveSection.attributeTypeMap;
+    }
+}
+
+/**
+* Part of WhatsApp interactive mesage
+*/
+export class Rows {
+    /**
+    * Title of the row. .
+    */
+    'title'?: string;
+
+    /**
+    * Id of the row..
+    */
+    'id'?: string;
+    /**
+    * Description of the row. 
+    */
+    'description'?: string;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "title",
+            "baseName": "title",
+            "type": "string"
+        },
+        {
+            "name": "id",
+            "baseName": "id",
+            "type": "string"
+        },
+        {
+            "name": "description",
+            "baseName": "description",
+            "type": "string"
+        }];
+
+        static getAttributeTypeMap() {
+            return Rows.attributeTypeMap;
+        }
+}
+
+/**
 * Contains information for a {CM.Messaging.RCSModels.Models.Suggestion.Calendar} (RCS).
 */
 export class Calendar {
@@ -989,6 +1429,16 @@ export class RichMessage {
     */
     'oauth2'?: OAuthMessage;
 
+    /**
+    * Used to send an WhatsApp interactive message.
+    */
+     'interactive'?: WhatsAppInteractive;
+
+     /**
+    * Used to send an Apple Messages for Business listpicker message.
+    */
+     'listPicker'?: ListPicker;
+
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
@@ -1036,7 +1486,17 @@ export class RichMessage {
             "name": "oauth2",
             "baseName": "oauth2",
             "type": "OAuthMessage"
-        }    ];
+        },
+        {
+            "name": "interactive",
+            "baseName": "interactive",
+            "type": "WhatsAppInteractive"
+        } ,
+        {
+            "name": "listPicker",
+            "baseName": "listPicker",
+            "type": "ListPicker"
+        }   ];
 
     static getAttributeTypeMap() {
         return RichMessage.attributeTypeMap;
@@ -1781,6 +2241,17 @@ let typeMap: {[index: string]: any} = {
     "Messages": Messages,
     "MessagesResponse": MessagesResponse,
     "Recipient": Recipient,
+    "ListPicker": ListPicker,
+    "ListItem": ListItem,
+    "WhatsAppInteractive": WhatsAppInteractive,
+    "InteractiveHeader": InteractiveHeader,
+    "InteractiveBody": InteractiveBody,
+    "InteractiveFooter": InteractiveFooter,
+    "InteractiveAction": InteractiveAction,
+    "ReplyMessage": ReplyMessage,
+    "InteractiveSection": InteractiveSection,
+    "InteractiveButton": InteractiveButton,
+    "Rows": Rows
 }
 
 export interface Authentication {

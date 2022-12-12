@@ -1,3 +1,8 @@
+## [1.4.0] - 2022-12-09
+### Added
+- Add missing models to send WhatsApp interactive messages
+- Add missing models to send Apple Messages for Business listpicker messages.
+
 ## [1.3.6] - 2022-12-05
 ### Added
 - Support for the Telegram channel

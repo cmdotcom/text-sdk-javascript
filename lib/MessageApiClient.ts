@@ -1,12 +1,12 @@
 import * as CMTypes from "../typescript-node-client/api";
 import http = require('http');
 
-export type Channel = "SMS" | "Viber" | "RCS" | "Apple Business Chat" | "WhatsApp" | "Telegram Messenger" | "Twitter" | "MobilePush" | "Facebook Messenger" | "Google Business Messages" | "Instagram";
+export type Channel = "SMS" | "Viber" | "RCS" | "Apple Messages for Business" | "WhatsApp" | "Telegram Messenger" | "Twitter" | "MobilePush" | "Facebook Messenger" | "Google Business Messages" | "Instagram";
 export type RichMessage = CMTypes.RichMessage;
 export type Suggestion = CMTypes.Suggestion;
 export type Template = CMTypes.Template;
 export type MessagesResponse = CMTypes.MessagesResponse;
-
+export type WhatsAppInteractive = CMTypes.WhatsAppInteractive;
 /**
  * Message client for the CM.com Platform
  */
@@ -139,6 +139,15 @@ export class Message extends CMTypes.MessageEnvelope {
      */
     public setTemplate(template: Template): Message {
         this.getRichContent().conversation = [{ template: template }];
+        return this;
+    }
+
+      /**
+     * Sets the WhatsAppInteractive Message 
+     * @param template template definition and usage object
+     */
+      public setInteractive(interactive: WhatsAppInteractive): Message {
+        this.getRichContent().conversation = [{ interactive: interactive }];
         return this;
     }
 
