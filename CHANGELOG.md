@@ -1,4 +1,7 @@
 ## [2.0.0] - 2023-10-18
+### Added
+- Use `axios` to send HTTP requests
+
 ### Changed
 - Removed dependencies on `http`, `bluebird`, `request`
 - Use customgrouping3 instead of customgrouping for categorization
