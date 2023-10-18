@@ -90,7 +90,7 @@ export class Message extends CMTypes.MessageEnvelope {
      */
     public setMessage(to: string[], from: string, message: string, reference: string = undefined): Message {
         const msg = new CMTypes.Message();
-        msg.customGrouping = "text-sdk-javascript";
+        msg.customGrouping3 = "text-sdk-javascript";
         msg.from = from;
         msg.body = new CMTypes.MessageBody();
         msg.body.type = "AUTO";

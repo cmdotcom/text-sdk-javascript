@@ -1920,7 +1920,7 @@ export class Message {
     /**
     * The custom grouping field is an optional field that can be used to tag messages. These tags will be used by other CM products, like the Transactions API. Despite not being immediately visible to you yet, custom groupings can already be assigned.  Applying custom grouping names to messages helps filter your messages.With up to three levels of custom grouping fields that can be set, subsets of messages can be further broken down. The custom grouping name can be up to 100 characters of your choosing.  It’s recommended to limit the number of unique custom groupings to 1000. Please contact support in case you would like to exceed this number.
     */
-    'customGrouping'?: string;
+    'customGrouping3'?: string;
     /**
     * The allowed channels field forces a message to only use certain routes.  In this field you can define a list of which channels you want your message to use.  Not defining any channels will be interpreted as allowing all channels.
     */
@@ -1964,8 +1964,8 @@ export class Message {
             "type": "Array<Recipient>"
         },
         {
-            "name": "customGrouping",
-            "baseName": "customGrouping",
+            "name": "customGrouping3",
+            "baseName": "customGrouping3",
             "type": "string"
         },
         {
@@ -2310,7 +2310,6 @@ export enum MessagesApiApiKeys {
 export class MessagesApi {
     protected _basePath = defaultBasePath;
     protected defaultHeaders : any = {};
-    protected _useQuerystring : boolean = false;
 
     protected authentications = {
         'default': <Authentication>new VoidAuth(),
@@ -2327,10 +2326,6 @@ export class MessagesApi {
                 this.basePath = basePathOrUsername
             }
         }
-    }
-
-    set useQuerystring(value: boolean) {
-        this._useQuerystring = value;
     }
 
     set basePath(basePath: string) {
