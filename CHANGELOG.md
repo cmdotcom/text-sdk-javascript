@@ -1,3 +1,7 @@
+## [2.0.0] - 2023-10-18
+### Changed
+- Removed dependencies on `http`, `bluebird`, `request`
+
 ## [1.4.1] - 2022-12-12
 ### Changed
 - Update model for WhatsApp Interactive.

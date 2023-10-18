@@ -10,10 +10,6 @@
  * Do not edit the class manually.
  */
 
-import localVarRequest = require('request');
-import http = require('http');
-import Promise = require('bluebird');
-
 let defaultBasePath = 'https://gw.cmtelecom.com';
 
 // ===============================================
@@ -2350,6 +2346,7 @@ export class MessagesApi {
     public setApiKey(key: MessagesApiApiKeys, value: string) {
         (this.authentications as any)[MessagesApiApiKeys[key]].apiKey = value;
     }
+    
     /**
      * 
      * @summary CM's Messaging Gateway enables you to send text messages to mobile phones all around the world in very high volume.                            The Messaging Gateway API covers the interface between your application and the CM Platform by means of the HTTP protocol. Only bulk (free of charge for the end user) text messages are supported.
