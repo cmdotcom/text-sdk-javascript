@@ -2,6 +2,7 @@
 ### Changed
 - Removed dependencies on `http`, `bluebird`, `request`
 - Use customgrouping3 instead of customgrouping for categorization
+- Target `ES2022` instead of `ES5`
 
 ## Removed
 - Possibility to use a query string
