@@ -8,7 +8,7 @@
 - Target `ES2022` instead of `ES5`
 - Various package versions
 
-## Removed
+### Removed
 - Possibility to use a query string
 - Deprecated methods from `MessageApiClient.ts`
 
