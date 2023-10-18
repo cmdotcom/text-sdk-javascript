@@ -1,3 +1,17 @@
+## [2.0.0] - 2023-10-18
+### Added
+- Use `axios` to send HTTP requests
+
+### Changed
+- Removed dependencies on `http`, `bluebird`, `request`
+- Use customgrouping3 instead of customgrouping for categorization
+- Target `ES2022` instead of `ES5`
+- Various package versions
+
+### Removed
+- Possibility to use a query string
+- Deprecated methods from `MessageApiClient.ts`
+
 ## [1.4.1] - 2022-12-12
 ### Changed
 - Update model for WhatsApp Interactive.

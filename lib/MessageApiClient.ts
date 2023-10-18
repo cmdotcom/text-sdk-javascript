@@ -1,5 +1,5 @@
 import * as CMTypes from "../typescript-node-client/api";
-import http = require('http');
+import axios = require('axios');
 
 export type Channel = "SMS" | "Viber" | "RCS" | "Apple Messages for Business" | "WhatsApp" | "Telegram Messenger" | "Twitter" | "MobilePush" | "Facebook Messenger" | "Google Business Messages" | "Instagram";
 export type RichMessage = CMTypes.RichMessage;
@@ -27,20 +27,6 @@ export class MessageApiClient {
      */
     public createMessage() : Message {
         return new Message(this.productToken);
-    }
-
-    /**
-     * @deprecated use .sendTextMessages(...) instead
-     */
-    public SendTextMessage(to: string, from: string, message: string, reference: string = undefined) {
-        return this.SendTextMessages([to], from, message, reference);
-    }
-      
-    /**
-     * @deprecated use .sendTextMessages(...) instead
-     */
-    public SendTextMessages(to: string[], from: string, message: string, reference: string = undefined) {
-        return this.sendTextMessage(to, from, message, reference);
     }
 
     /**
@@ -90,7 +76,7 @@ export class Message extends CMTypes.MessageEnvelope {
      */
     public setMessage(to: string[], from: string, message: string, reference: string = undefined): Message {
         const msg = new CMTypes.Message();
-        msg.customGrouping = "text-sdk-javascript";
+        msg.customGrouping3 = "text-sdk-javascript";
         msg.from = from;
         msg.body = new CMTypes.MessageBody();
         msg.body.type = "AUTO";
@@ -154,7 +140,7 @@ export class Message extends CMTypes.MessageEnvelope {
     /**
      * Sends the message to the CM.com Platform 
      */
-    public send(): Promise<{ body: MessagesResponse; response: http.IncomingMessage }> {
+    public send(): Promise<axios.AxiosResponse<any, any>> {
         return this.api.messagesSendMessage(this);
     }
 

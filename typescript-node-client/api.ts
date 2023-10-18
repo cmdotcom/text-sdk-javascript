@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-import localVarRequest = require('request');
-import http = require('http');
-import Promise = require('bluebird');
+import axios = require('axios');
 
 let defaultBasePath = 'https://gw.cmtelecom.com';
 
@@ -1922,7 +1920,7 @@ export class Message {
     /**
     * The custom grouping field is an optional field that can be used to tag messages. These tags will be used by other CM products, like the Transactions API. Despite not being immediately visible to you yet, custom groupings can already be assigned.  Applying custom grouping names to messages helps filter your messages.With up to three levels of custom grouping fields that can be set, subsets of messages can be further broken down. The custom grouping name can be up to 100 characters of your choosing.  It’s recommended to limit the number of unique custom groupings to 1000. Please contact support in case you would like to exceed this number.
     */
-    'customGrouping'?: string;
+    'customGrouping3'?: string;
     /**
     * The allowed channels field forces a message to only use certain routes.  In this field you can define a list of which channels you want your message to use.  Not defining any channels will be interpreted as allowing all channels.
     */
@@ -1966,8 +1964,8 @@ export class Message {
             "type": "Array<Recipient>"
         },
         {
-            "name": "customGrouping",
-            "baseName": "customGrouping",
+            "name": "customGrouping3",
+            "baseName": "customGrouping3",
             "type": "string"
         },
         {
@@ -2258,14 +2256,14 @@ export interface Authentication {
     /**
     * Apply authentication settings to header and query params.
     */
-    applyToRequest(requestOptions: localVarRequest.Options): void;
+    applyToRequest(requestOptions: axios.AxiosRequestConfig): void;
 }
 
 export class HttpBasicAuth implements Authentication {
     public username: string = '';
     public password: string = '';
 
-    applyToRequest(requestOptions: localVarRequest.Options): void {
+    applyToRequest(requestOptions: axios.AxiosRequestConfig): void {
         requestOptions.auth = {
             username: this.username, password: this.password
         }
@@ -2278,9 +2276,9 @@ export class ApiKeyAuth implements Authentication {
     constructor(private location: string, private paramName: string) {
     }
 
-    applyToRequest(requestOptions: localVarRequest.Options): void {
+    applyToRequest(requestOptions: axios.AxiosRequestConfig): void {
         if (this.location == "query") {
-            (<any>requestOptions.qs)[this.paramName] = this.apiKey;
+            (<any>requestOptions.params)[this.paramName] = this.apiKey;
         } else if (this.location == "header" && requestOptions && requestOptions.headers) {
             requestOptions.headers[this.paramName] = this.apiKey;
         }
@@ -2290,7 +2288,7 @@ export class ApiKeyAuth implements Authentication {
 export class OAuth implements Authentication {
     public accessToken: string = '';
 
-    applyToRequest(requestOptions: localVarRequest.Options): void {
+    applyToRequest(requestOptions: axios.AxiosRequestConfig): void {
         if (requestOptions && requestOptions.headers) {
             requestOptions.headers["Authorization"] = "Bearer " + this.accessToken;
         }
@@ -2301,7 +2299,7 @@ export class VoidAuth implements Authentication {
     public username: string = '';
     public password: string = '';
 
-    applyToRequest(_: localVarRequest.Options): void {
+    applyToRequest(_: axios.AxiosRequestConfig): void {
         // Do nothing
     }
 }
@@ -2312,7 +2310,6 @@ export enum MessagesApiApiKeys {
 export class MessagesApi {
     protected _basePath = defaultBasePath;
     protected defaultHeaders : any = {};
-    protected _useQuerystring : boolean = false;
 
     protected authentications = {
         'default': <Authentication>new VoidAuth(),
@@ -2331,10 +2328,6 @@ export class MessagesApi {
         }
     }
 
-    set useQuerystring(value: boolean) {
-        this._useQuerystring = value;
-    }
-
     set basePath(basePath: string) {
         this._basePath = basePath;
     }
@@ -2350,17 +2343,16 @@ export class MessagesApi {
     public setApiKey(key: MessagesApiApiKeys, value: string) {
         (this.authentications as any)[MessagesApiApiKeys[key]].apiKey = value;
     }
+    
     /**
      * 
      * @summary CM's Messaging Gateway enables you to send text messages to mobile phones all around the world in very high volume.                            The Messaging Gateway API covers the interface between your application and the CM Platform by means of the HTTP protocol. Only bulk (free of charge for the end user) text messages are supported.
      * @param message 
      * @param {*} [options] Override http request options.
      */
-    public messagesSendMessage (message: MessageEnvelope, options: any = {}) : Promise<{ response: http.IncomingMessage; body: MessagesResponse;  }> {
+    public messagesSendMessage (message: MessageEnvelope, options: any = {}) : Promise<axios.AxiosResponse<any, any>> {
         const localVarPath = this.basePath + '/v1.0/message';
-        let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
 
         // verify required parameter 'message' is not null or undefined
         if (message === null || message === undefined) {
@@ -2369,40 +2361,15 @@ export class MessagesApi {
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
+        let axiosRequestOptions: axios.AxiosRequestConfig = {
             method: 'POST',
-            qs: localVarQueryParameters,
             headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-            body: ObjectSerializer.serialize(message, "MessageEnvelope")
+            url: localVarPath,
+            data: ObjectSerializer.serialize(message, "MessageEnvelope")
         };
 
-        this.authentications.default.applyToRequest(localVarRequestOptions);
+        this.authentications.default.applyToRequest(axiosRequestOptions);
 
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-        return new Promise<{ response: http.IncomingMessage; body: MessagesResponse;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    body = ObjectSerializer.deserialize(body, "MessagesResponse");
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
+        return axios.default.request(axiosRequestOptions);
     }
 }

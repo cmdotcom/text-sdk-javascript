@@ -31,26 +31,6 @@ describe("MessageApiClient", () => {
         expect(myMessageApi).to.be.an.instanceof(MessageApiClient);
     });
 
-    it("should create a valid http(s) request - SendTextMessage", () => {
-        const yourProductToken = "cccc";
-        const myMessageApi = new MessageApiClient(yourProductToken);
-        const response = myMessageApi.SendTextMessage("00316012345678", "MockedTest", "Hi.");
-
-        expect(response).to.be.eventually.fulfilled.and.to.satisfy((response) => {
-            return response.body.details === "Created 1 message(s)";
-        });
-    });
-
-    it("should create a valid http(s) request - SendTextMessages", () => {
-        const yourProductToken = "cccc";
-        const myMessageApi = new MessageApiClient(yourProductToken);
-        const response = myMessageApi.SendTextMessages(["00316012345678"], "MockedTest", "Hi.");
-
-        expect(response).to.be.eventually.fulfilled.and.to.satisfy((response) => {
-            return response.body.details === "Created 1 message(s)";
-        });
-    });
-
     it("should create a valid http(s) request - sendTextMessage", () => {
         const yourProductToken = "cccc";
         const myMessageApi = new MessageApiClient(yourProductToken);
