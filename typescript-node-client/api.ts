@@ -10,6 +10,8 @@
  * Do not edit the class manually.
  */
 
+import axios = require('axios');
+
 let defaultBasePath = 'https://gw.cmtelecom.com';
 
 // ===============================================
@@ -2254,14 +2256,14 @@ export interface Authentication {
     /**
     * Apply authentication settings to header and query params.
     */
-    applyToRequest(requestOptions: localVarRequest.Options): void;
+    applyToRequest(requestOptions: axios.AxiosRequestConfig): void;
 }
 
 export class HttpBasicAuth implements Authentication {
     public username: string = '';
     public password: string = '';
 
-    applyToRequest(requestOptions: localVarRequest.Options): void {
+    applyToRequest(requestOptions: axios.AxiosRequestConfig): void {
         requestOptions.auth = {
             username: this.username, password: this.password
         }
@@ -2274,9 +2276,9 @@ export class ApiKeyAuth implements Authentication {
     constructor(private location: string, private paramName: string) {
     }
 
-    applyToRequest(requestOptions: localVarRequest.Options): void {
+    applyToRequest(requestOptions: axios.AxiosRequestConfig): void {
         if (this.location == "query") {
-            (<any>requestOptions.qs)[this.paramName] = this.apiKey;
+            (<any>requestOptions.params)[this.paramName] = this.apiKey;
         } else if (this.location == "header" && requestOptions && requestOptions.headers) {
             requestOptions.headers[this.paramName] = this.apiKey;
         }
@@ -2286,7 +2288,7 @@ export class ApiKeyAuth implements Authentication {
 export class OAuth implements Authentication {
     public accessToken: string = '';
 
-    applyToRequest(requestOptions: localVarRequest.Options): void {
+    applyToRequest(requestOptions: axios.AxiosRequestConfig): void {
         if (requestOptions && requestOptions.headers) {
             requestOptions.headers["Authorization"] = "Bearer " + this.accessToken;
         }
@@ -2297,7 +2299,7 @@ export class VoidAuth implements Authentication {
     public username: string = '';
     public password: string = '';
 
-    applyToRequest(_: localVarRequest.Options): void {
+    applyToRequest(_: axios.AxiosRequestConfig): void {
         // Do nothing
     }
 }
@@ -2353,11 +2355,9 @@ export class MessagesApi {
      * @param message 
      * @param {*} [options] Override http request options.
      */
-    public messagesSendMessage (message: MessageEnvelope, options: any = {}) : Promise<{ response: http.IncomingMessage; body: MessagesResponse;  }> {
+    public messagesSendMessage (message: MessageEnvelope, options: any = {}) : Promise<axios.AxiosResponse<any, any>> {
         const localVarPath = this.basePath + '/v1.0/message';
-        let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
 
         // verify required parameter 'message' is not null or undefined
         if (message === null || message === undefined) {
@@ -2366,40 +2366,15 @@ export class MessagesApi {
 
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
+        let axiosRequestOptions: axios.AxiosRequestConfig = {
             method: 'POST',
-            qs: localVarQueryParameters,
             headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-            body: ObjectSerializer.serialize(message, "MessageEnvelope")
+            url: localVarPath,
+            data: ObjectSerializer.serialize(message, "MessageEnvelope")
         };
 
-        this.authentications.default.applyToRequest(localVarRequestOptions);
+        this.authentications.default.applyToRequest(axiosRequestOptions);
 
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-        return new Promise<{ response: http.IncomingMessage; body: MessagesResponse;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    body = ObjectSerializer.deserialize(body, "MessagesResponse");
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
+        return axios.default.request(axiosRequestOptions);
     }
 }

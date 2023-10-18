@@ -1,4 +1,5 @@
 import * as CMTypes from "../typescript-node-client/api";
+import axios = require('axios');
 
 export type Channel = "SMS" | "Viber" | "RCS" | "Apple Messages for Business" | "WhatsApp" | "Telegram Messenger" | "Twitter" | "MobilePush" | "Facebook Messenger" | "Google Business Messages" | "Instagram";
 export type RichMessage = CMTypes.RichMessage;
@@ -153,7 +154,7 @@ export class Message extends CMTypes.MessageEnvelope {
     /**
      * Sends the message to the CM.com Platform 
      */
-    public send(): Promise<{ body: MessagesResponse; response: http.IncomingMessage }> {
+    public send(): Promise<axios.AxiosResponse<any, any>> {
         return this.api.messagesSendMessage(this);
     }
 
