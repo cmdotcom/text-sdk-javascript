@@ -30,20 +30,6 @@ export class MessageApiClient {
     }
 
     /**
-     * @deprecated use .sendTextMessages(...) instead
-     */
-    public SendTextMessage(to: string, from: string, message: string, reference: string = undefined) {
-        return this.SendTextMessages([to], from, message, reference);
-    }
-      
-    /**
-     * @deprecated use .sendTextMessages(...) instead
-     */
-    public SendTextMessages(to: string[], from: string, message: string, reference: string = undefined) {
-        return this.sendTextMessage(to, from, message, reference);
-    }
-
-    /**
      * Send an SMS message
      * @param to array of recipients for the message, specify the numbers in international format with leading 00   
      * For Twitter: use the Twitter Snowflake ID

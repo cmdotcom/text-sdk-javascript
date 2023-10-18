@@ -6,6 +6,7 @@
 
 ## Removed
 - Possibility to use a query string
+- Deprecated methods from `MessageApiClient.ts`
 
 ## [1.4.1] - 2022-12-12
 ### Changed
