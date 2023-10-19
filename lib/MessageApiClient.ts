@@ -42,6 +42,7 @@ export class MessageApiClient {
         return this
             .createMessage()
             .setMessage(to, from, message, reference)
+            .setAllowedChannels(['SMS'])
             .send();
     }
 }
