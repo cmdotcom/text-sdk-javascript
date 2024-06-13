@@ -10,7 +10,7 @@ import "mocha";
 const nock = require('nock');
 // Mocking the gateway here.
 beforeEach(() => {
-    nock('https://gw.cmtelecom.com')
+    nock('https://gw.messaging.cm.com')
         .post('/v1.0/message')
         .once() //Make sure we don't post twice
         .reply(200, (uri, requestBody) => {

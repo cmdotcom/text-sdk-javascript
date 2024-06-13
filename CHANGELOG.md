@@ -1,3 +1,7 @@
+## [2.1.0] - 2024-06-13
+- Update global endpoint
+- Fix misc urls in towards the dev docs
+
 ## [2.0.0] - 2023-10-18
 ### Added
 - Use `axios` to send HTTP requests
