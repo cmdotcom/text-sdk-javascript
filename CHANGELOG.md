@@ -1,3 +1,10 @@
+## [2.1.1] - 2026-11-03
+### Security
+- Update `axios` to `^1.21.0` (fixes advisories in axios and its transitive dependency `form-data`)
+- Update dev dependencies (`mocha`, `nyc`, `rimraf`) and pin a patched `serialize-javascript`
+- Remove deprecated `codecov` uploader package
+- CI now tests on Node.js 20, 22 and 24
+
 ## [2.1.0] - 2024-06-13
 - Update global endpoint
 - Fix misc urls in towards the dev docs
