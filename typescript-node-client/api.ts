@@ -2061,7 +2061,7 @@ export class MessageResponse {
     */
     'messageDetails'?: string;
     /**
-    * The error code, see https://developers.cm.com/messaging/docs/responses-errors-json for more details.
+    * The error code, see https://docs.cm.com/messaging/business-messaging/responses-and-errors for more details.
     */
     'messageErrorCode'?: number;
 
@@ -2145,7 +2145,7 @@ export class MessagesResponse {
     */
     'details'?: string;
     /**
-    * The error code, see https://developers.cm.com/messaging/docs/responses-errors-json for more details.
+    * The error code, see https://docs.cm.com/messaging/business-messaging/responses-and-errors for more details.
     */
     'errorCode'?: number;
     /**
